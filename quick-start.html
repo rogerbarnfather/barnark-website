@@ -187,6 +187,16 @@ Checking …/hotel/src against 'Hotel'
 Stop it with Ctrl-C. The project’s folder is on the left: <em>Browse</em> shows its tree with a button for each thing the
 template lets you add, <em>Check</em> runs the check, and <em>History</em> lists every revision of the template. The
 <a href="docs/gui.html">browser app</a> page covers the rest.</p>
+<h2 id="agent-skills">Let your AI agent help <a class="anchor" href="#agent-skills" aria-label="Link to this section">#</a></h2>
+<p>If you work with an AI agent, copy Barnark’s agent skills into the project:</p>
+<pre><code><span class="p">$ </span>vendor/bin/barnark skills:install
+barnark-choosing-an-architecture: 2 written, 0 up to date, 0 left as you changed them
+barnark-designing-your-template: 1 written, 0 up to date, 0 left as you changed them
+barnark-getting-started: 1 written, 0 up to date, 0 left as you changed them
+barnark-placing-code: 1 written, 0 up to date, 0 left as you changed them
+Skills are in …/shop/.claude/skills</code></pre>
+<p>These are four skills in <code>.claude/skills/</code>, the folder Claude Code reads (<code>--dir=&lt;folder&gt;</code> for another agent’s). They teach your agent what Barnark keeps, the commands that read and the ones that write, how to choose an architecture, how to write a template and its folder meanings, and where code belongs. Ask it to set up a new project, add a module, review a change against the template, or explain a failed check: it reads your template first, shows you what it would create, and writes through the commands only once you agree.</p>
+<p>Run the command again after updating Barnark: files you have changed are kept unless you pass <code>--force</code>.</p>
 <h2 id="where-next">Where next <a class="anchor" href="#where-next" aria-label="Link to this section">#</a></h2>
 <ul><li><a href="docs/choose.html">Choose and clone an architecture</a>: what each shipped template is for and what it makes.</li><li><a href="docs/grow.html">Add folders to your template</a>: collections, members and folders of your own.</li><li><a href="philosophy.html">Philosophy</a>: why a template is copied, never referred to, and why conformance is checked, not claimed.</li></ul>
 <p class="in-barn-left">Used in Barn: in a <a href="https://rogerbarnfather.github.io/barn-website/barn.html">barn</a>, Barnark is the Ark tab. <code>barnark init</code> makes any project a barn so Barnark can work on its own.</p>
