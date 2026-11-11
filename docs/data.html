@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Where your data lives · Barnark</title>
+  <meta name="description" content="Where Barnark keeps its records: the files under .barn/barnark/, what each holds and what to commit.">
+  <link rel="icon" href="../assets/barnark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/base/base.css">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-brand="ark">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="wordmark" href="../index.html"><svg class="mark tool-mark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 14.5h20l-3.2 5.5H5.2zM6.5 13V9.5L12 5.5l5.5 4V13z"/></svg>Barnark</a>
+      <nav aria-label="Barnark">
+        <ul class="nav">
+          <li><a href="../philosophy.html">Philosophy</a></li>
+          <li><a href="../quick-start.html">Quick start</a></li>
+          <li><a href="index.html" aria-current="page">Documentation</a></li>
+          <li><a href="https://rogerbarnfather.github.io/barn-website/">Barn</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="docs wrap wide">
+      <nav class="docs-nav" aria-label="Documentation"><h2>Start</h2><ul><li><a href="index.html">Overview</a></li><li><a href="templates.html">Templates, bound and unbound</a></li></ul><h2>Tasks</h2><ul><li><a href="choose.html">Choose and clone an architecture</a></li><li><a href="grow.html">Add folders to your template</a></li><li><a href="check.html">Check the project</a></li><li><a href="yours.html">Keep templates of your own</a></li><li><a href="history.html">Revisions and history</a></li></ul><h2>Tools</h2><ul><li><a href="gui.html">The browser app</a></li><li><a href="cli.html">Command reference</a></li><li><a href="php.html">From PHP</a></li><li><a href="install.html">Installation</a></li><li><a href="data.html" aria-current="page">Where your data lives</a></li></ul><h2>Reference</h2><ul><li><a href="glossary.html">Glossary</a></li><li><a href="troubleshooting.html">When something goes wrong</a></li></ul></nav>
+      <article class="docs-article">
+        <h1>Where your data lives</h1>
+        <p class="lede">Plain files in the barn, committed with your code.</p>
+<p>Barnark keeps what it knows in the barn, in <code>.barn/barnark/</code>, and nowhere else. These files describe the
+architecture, not build output, so commit them together with your code.</p>
+<pre><code><span class="p">$ </span>find .barn -type f | sort
+.barn/barnark/catalogue/template-history/catalogue.barntree.json
+.barn/barnark/catalogue/template-history/save.lock
+.barn/barnark/catalogue/trees/Hotel.barntree.json
+.barn/barnark/tracked-folders.json</code></pre>
+<div class="table-wrap"><table><thead><tr><th scope="col">File</th><th scope="col">What it holds</th></tr></thead><tbody><tr><td><code>tracked-folders.json</code></td><td>The folder the project’s template is bound to. <code>template:clone</code> writes it when it makes a folder. It is what lets a bare <code>template:check</code> work with no arguments.</td></tr><tr><td><code>catalogue/trees/&lt;name&gt;.barntree.json</code></td><td>Each of the project’s templates, bound or not: a copy of the one it was cloned from, under the name you gave it, and tied to nothing. This is the template’s current tree.</td></tr><tr><td><code>catalogue/template-history/</code></td><td>Every revision of every template, each with the reason it was made. Nothing in it names the template it came from.</td></tr><tr><td><code>save.lock</code></td><td>Written while a template is saved. Leave it out of git.</td></tr></tbody></table></div>
+<pre><code><span class="p">$ </span>cat .barn/barnark/tracked-folders.json
+{
+    "folders": [
+        {
+            "path": "/lib",
+            "template": "Pricing"
+        }
+    ]
+}</code></pre>
+<h2 id="commit">Commit, but not the lock <a class="anchor" href="#commit" aria-label="Link to this section">#</a></h2>
+<p>Commit <code>.barn/barnark/</code>. Leave the lock files out of git by adding these to <code>.gitignore</code>:</p>
+<pre><code>.barn/barnark/catalogue/template-history/save.lock
+.barn/barnark/catalogue/workspace/*/*/save.lock</code></pre>
+<h2 id="by-hand">Don’t edit them by hand <a class="anchor" href="#by-hand" aria-label="Link to this section">#</a></h2>
+<p>A template that was changed outside Barnark can’t be read. Barnark says so, and which file, and does nothing else:</p>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:check
+Barn: …/hotel
+
+Checking …/hotel/src against 'Hotel'
+====================================
+
+ [ERROR] Template 'Hotel' can't be read: The revision file
+         '…/hotel/.barn/barnark/catalogue/template-history' cannot be used:
+         Syntax error.</code></pre>
+<p>Restore the file from git. Every change to a template is made through Barnark, as a revision.</p>
+<h2 id="older">An older barn <a class="anchor" href="#older" aria-label="Link to this section">#</a></h2>
+<p>Barnark is for new projects and converts no older record. A <code>tracked-folders.json</code> that binds several folders is refused,
+with the file’s path:</p>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:list
+Barn: …/hotel
+
+ [ERROR] …/hotel/.barn/barnark/tracked-folders.json binds several folders. A
+         project now binds one template, to one folder, and Barnark converts
+         no old record. Delete the file to start afresh.</code></pre>
+<p>To keep an older folder bound, scaffold it again under the same path in a new, empty barn, and copy that barn’s
+<code>.barn/barnark/</code> into yours. A <code>templates/</code> folder left in an older barn is not read.</p>
+        <div class="docs-next"><a href="install.html">← Installation</a><a href="glossary.html">Glossary →</a></div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Barnark · © Roger Barnfather</span>
+      <nav aria-label="Footer">
+        <a href="../index.html">Introduction</a>
+        <a href="../philosophy.html">Philosophy</a>
+        <a href="../quick-start.html">Quick start</a>
+        <a href="index.html" aria-current="page">Documentation</a>
+        <a href="https://rogerbarnfather.github.io/barn-website/">Barn</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

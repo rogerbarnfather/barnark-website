@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The browser app · Barnark</title>
+  <meta name="description" content="How to start and use the Barnark browser app: cloning, browsing, adding members, the template, the check and history.">
+  <link rel="icon" href="../assets/barnark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/base/base.css">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-brand="ark">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="wordmark" href="../index.html"><svg class="mark tool-mark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 14.5h20l-3.2 5.5H5.2zM6.5 13V9.5L12 5.5l5.5 4V13z"/></svg>Barnark</a>
+      <nav aria-label="Barnark">
+        <ul class="nav">
+          <li><a href="../philosophy.html">Philosophy</a></li>
+          <li><a href="../quick-start.html">Quick start</a></li>
+          <li><a href="index.html" aria-current="page">Documentation</a></li>
+          <li><a href="https://rogerbarnfather.github.io/barn-website/">Barn</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="docs wrap wide">
+      <nav class="docs-nav" aria-label="Documentation"><h2>Start</h2><ul><li><a href="index.html">Overview</a></li><li><a href="templates.html">Templates, bound and unbound</a></li></ul><h2>Tasks</h2><ul><li><a href="choose.html">Choose and clone an architecture</a></li><li><a href="grow.html">Add folders to your template</a></li><li><a href="check.html">Check the project</a></li><li><a href="yours.html">Keep templates of your own</a></li><li><a href="history.html">Revisions and history</a></li></ul><h2>Tools</h2><ul><li><a href="gui.html" aria-current="page">The browser app</a></li><li><a href="cli.html">Command reference</a></li><li><a href="php.html">From PHP</a></li><li><a href="install.html">Installation</a></li><li><a href="data.html">Where your data lives</a></li></ul><h2>Reference</h2><ul><li><a href="glossary.html">Glossary</a></li><li><a href="troubleshooting.html">When something goes wrong</a></li></ul></nav>
+      <article class="docs-article">
+        <h1>The browser app</h1>
+        <p class="lede">Everything Barnark does, in a browser.</p>
+<p>The browser app does everything the command line does: clone a template into the project and make its folder, browse the
+folder’s tree, add what the template offers, run the check and keep templates of your own. It is the easiest way to use Barnark.</p>
+<h2 id="start">Start it <a class="anchor" href="#start" aria-label="Link to this section">#</a></h2>
+<pre><code><span class="p">$ </span>vendor/bin/barnark gui                       <span class="c"># http://localhost:8081, opens your browser</span>
+<span class="p">$ </span>vendor/bin/barnark gui --port=9000 --no-open</code></pre>
+<p>It serves the barn it is started in: the nearest folder at or above the current one that holds a <code>.barn/</code>
+folder. It prints the barn’s root and picks the next free port if the port you asked for is taken. Stop it with Ctrl-C. With no barn
+there, the page says so and offers to make one in the folder it was started in. That adds only the <code>.barn/</code> folder.</p>
+<div class="table-wrap"><table><thead><tr><th scope="col">Option</th><th scope="col">What it does</th></tr></thead><tbody><tr><td><code>-p</code>, <code>--port=PORT</code></td><td>The port to try first. The default is 8081.</td></tr><tr><td><code>--host=HOST</code></td><td>The host to listen on. The default is <code>localhost</code>.</td></tr><tr><td><code>--no-open</code></td><td>Don’t open a browser window.</td></tr><tr><td><code>--dry-run</code></td><td>Print what would be started without starting it.</td></tr></tbody></table></div>
+<h2 id="side-panel">The side panel <a class="anchor" href="#side-panel" aria-label="Link to this section">#</a></h2>
+<p>The side panel has two headings. <strong>Project</strong> holds the project’s one bound folder and its template.
+<strong>Templates</strong> holds your own templates first, then the shipped ones, marked <em>Shipped</em>, which are read-only. Click a
+shipped template to see its tree, or one of your own to see its <a href="history.html">History</a>. The panel can be dragged to
+whatever width you like, and a double-click on the divider puts it back.</p>
+<h2 id="clone">Clone into the project <a class="anchor" href="#clone" aria-label="Link to this section">#</a></h2>
+<p>With nothing bound, <strong>New</strong> beside <em>Project</em> opens <strong>Clone into the project</strong>. You name the
+folder and its base directory, pick a template, and name the project’s template, which is a copy of the one you picked. Beside the
+choice is the shape a folder following it takes: the folders every clone has, <em>‹named›/</em> placeholders for the member types you add
+to yourself, and the members a template of your own already has. Point at any part to see what it is for. A project has one template, so
+once it has one, cloning is turned off.</p>
+<figure><div class="shot"><div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>Barnark · Clone into the project</span></div><img src="../assets/screens/ark-clone.webp" width="2560" height="2120" loading="lazy" alt="The Clone into the project form: folder name, base directory, the five shipped templates with Domain Driven Design picked, a preview of the folders a clone has, and a field for the project’s template name."></div></figure>
+<h2 id="browse">Browse <a class="anchor" href="#browse" aria-label="Link to this section">#</a></h2>
+<p>The tree shows a folder’s folders, never its files. Wherever the template has a member type for a folder you name, it offers a
+button for it, on the directory’s own row and inside the directory once it is open. Click, for example, <strong>Create New Context</strong>,
+give the new folder a name, and the template’s whole structure for it is made underneath.</p>
+<p>A member is part of the template, so adding or deleting one makes a new revision, with a reason Barnark writes, such as “Added
+Context/Billing.” The delete dialog says so before a member goes.</p>
+<figure><div class="shot"><div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>Barnark · Browse</span></div><img src="../assets/screens/ark-browse.webp" width="2560" height="1720" loading="lazy" alt="The Browse tab: the Context folder holds FrontDesk, Property and Reservation, and Reservation’s Domain holds a Booking aggregate. Buttons offer Create New Aggregate and Create New Context. Folders carry coloured tags such as Application, Domain and Infrastructure."></div><figcaption>Browse, with a button for each thing the template lets you add.</figcaption></figure>
+<h2 id="template">Template <a class="anchor" href="#template" aria-label="Link to this section">#</a></h2>
+<p>The <strong>Template</strong> tab shows the bound template’s current tree with what each folder means. A folder of the
+template’s own offers <strong>+</strong>, to add a folder of yours inside it with a name and a meaning, and <strong>Meaning</strong>, to
+change what it means. <strong>Add a folder</strong> and <strong>Change what /src means</strong> do the same for the bound folder itself.
+Each is a new revision. A collection holds only members, so it offers no <strong>+</strong>, and nothing inside a member offers anything.</p>
+<figure><div class="shot"><div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>Barnark · Template</span></div><img src="../assets/screens/ark-template.webp" width="2560" height="2000" loading="lazy" alt="The Template tab for Hotel, showing its tree with each folder’s meaning and its kind: fixed folder, member type or member. Buttons at the top read Add a folder and Change what /src means."></div></figure>
+<h2 id="check">Check <a class="anchor" href="#check" aria-label="Link to this section">#</a></h2>
+<p>The <strong>Check</strong> tab runs the <a href="check.html">check</a>. An unexpected folder offers <strong>Add to template</strong>:
+give it a meaning and it becomes part of the template as it is, and the check runs again.</p>
+<figure><div class="shot"><div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>Barnark · Check</span></div><img src="../assets/screens/ark-check-unexpected.webp" width="2560" height="1240" loading="lazy" alt="The Check tab reporting that the folder /src/Scratch is not part of Hotel, with an Add to template button."></div></figure>
+<h2 id="history">History <a class="anchor" href="#history" aria-label="Link to this section">#</a></h2>
+<p>The <strong>History</strong> tab lists the template’s revisions and shows each as a read-only tree. <a href="history.html">Revisions and history</a> has the rest.</p>
+<h2 id="tags">Tags <a class="anchor" href="#tags" aria-label="Link to this section">#</a></h2>
+<p>A template can tag its folders, as Domain Driven Design tags its layers <code>Application</code>, <code>Domain</code>,
+<code>Infrastructure</code> and <code>Transport</code>. A folder’s tags show as coloured labels beside its name, in Browse and in a
+template’s tree, and pointing at one shows what the tag means. Above a template’s current tree, a bar holds each of its tags: choose one to
+see only the folders with that tag and the folders above them, every context’s <code>Application</code> among them, and choose it again to
+see the whole tree.</p>
+        <div class="docs-next"><a href="history.html">← Revisions and history</a><a href="cli.html">Command reference →</a></div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Barnark · © Roger Barnfather</span>
+      <nav aria-label="Footer">
+        <a href="../index.html">Introduction</a>
+        <a href="../philosophy.html">Philosophy</a>
+        <a href="../quick-start.html">Quick start</a>
+        <a href="index.html" aria-current="page">Documentation</a>
+        <a href="https://rogerbarnfather.github.io/barn-website/">Barn</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

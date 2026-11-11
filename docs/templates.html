@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Templates, bound and unbound · Barnark</title>
+  <meta name="description" content="What a Barnark template is: shipped, cloned and copied, bound and unbound, and what its folders, collections and members are.">
+  <link rel="icon" href="../assets/barnark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/base/base.css">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-brand="ark">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="wordmark" href="../index.html"><svg class="mark tool-mark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 14.5h20l-3.2 5.5H5.2zM6.5 13V9.5L12 5.5l5.5 4V13z"/></svg>Barnark</a>
+      <nav aria-label="Barnark">
+        <ul class="nav">
+          <li><a href="../philosophy.html">Philosophy</a></li>
+          <li><a href="../quick-start.html">Quick start</a></li>
+          <li><a href="index.html" aria-current="page">Documentation</a></li>
+          <li><a href="https://rogerbarnfather.github.io/barn-website/">Barn</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="docs wrap wide">
+      <nav class="docs-nav" aria-label="Documentation"><h2>Start</h2><ul><li><a href="index.html">Overview</a></li><li><a href="templates.html" aria-current="page">Templates, bound and unbound</a></li></ul><h2>Tasks</h2><ul><li><a href="choose.html">Choose and clone an architecture</a></li><li><a href="grow.html">Add folders to your template</a></li><li><a href="check.html">Check the project</a></li><li><a href="yours.html">Keep templates of your own</a></li><li><a href="history.html">Revisions and history</a></li></ul><h2>Tools</h2><ul><li><a href="gui.html">The browser app</a></li><li><a href="cli.html">Command reference</a></li><li><a href="php.html">From PHP</a></li><li><a href="install.html">Installation</a></li><li><a href="data.html">Where your data lives</a></li></ul><h2>Reference</h2><ul><li><a href="glossary.html">Glossary</a></li><li><a href="troubleshooting.html">When something goes wrong</a></li></ul></nav>
+      <article class="docs-article">
+        <h1>Templates, bound and unbound</h1>
+        <p class="lede">What a template is, and how the project’s one differs from the rest.</p>
+<h2 id="shipped">Shipped templates <a class="anchor" href="#shipped" aria-label="Link to this section">#</a></h2>
+<p>Barnark ships a catalogue of five: Domain Driven Design, Feature Based Architecture, Model View Controller, Library and
+Package App. They are read-only, and only a new Barnark changes them. The <a href="choose.html">next page</a> says what each is for.</p>
+<h2 id="clone-and-copy">Clone and copy <a class="anchor" href="#clone-and-copy" aria-label="Link to this section">#</a></h2>
+<p>Two commands turn a shipped template into yours, and both copy:</p>
+<ul><li><strong>Clone</strong> copies a template under a name you give and makes the project’s folder to it, so the copy becomes the project’s template.</li><li><strong>Copy</strong> only makes a new template of your own. It makes no folder. Any template can be copied: a shipped one, one of yours, or the project’s own, members included.</li></ul>
+<p>Either way the copy is tied to nothing. Changing it never changes the template it came from, and a later Barnark that
+changes a shipped template never reaches it. The name can’t be one the project already has, or a shipped template’s name, ignoring
+case.</p>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:copy Hotel "domain driven design"
+Barn: …/hotel
+
+ [ERROR] 'domain driven design' can't name a template: a shipped template is
+         called 'Domain Driven Design'.</code></pre>
+<h2 id="bound-and-unbound">Bound and unbound <a class="anchor" href="#bound-and-unbound" aria-label="Link to this section">#</a></h2>
+<p>A project has <strong>one folder and one template that follows it</strong>. That is the <strong>bound</strong> template,
+made together with its folder by a clone. Barnark records which folder it is bound to in
+<code>.barn/barnark/tracked-folders.json</code>, and keeps each of the project’s templates, with its revisions, in
+<code>.barn/barnark/catalogue/</code>.</p>
+<p>The project’s other templates are <strong>unbound</strong>: ones you made by copying. An unbound template isn’t attached to any folder.
+It can be cloned into a project that has nothing bound, like a shipped template, or deleted. While a template is bound, another
+clone is refused.</p>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone Library Pricing ./lib
+Barn: …/hotel
+
+ [ERROR] The project has its template already: 'Hotel', bound to '/src'.</code></pre>
+<aside class="callout note"><p><strong>Note.</strong> Nothing unbinds the project’s template or removes its folder: ending a template’s life is not built yet.</p></aside>
+<p>The <a href="yours.html">Keep templates of your own</a> page shows copying, listing and deleting.</p>
+<h2 id="inside">What is in a template <a class="anchor" href="#inside" aria-label="Link to this section">#</a></h2>
+<p>A template is a tree of folders. Each folder in it is one of these:</p>
+<ul><li><strong>Fixed folder.</strong> A folder the template names itself, such as <code>Kernel</code> in Domain Driven Design or <code>Api</code> in Library. Every folder made to the template has it.</li><li><strong>Collection.</strong> A folder that holds only members, all of one member type, such as <code>Context</code> in Domain Driven Design.</li><li><strong>Member.</strong> A folder you add to a collection and name, such as <code>Reservation</code> in <code>Context</code>.</li><li><strong>Member type.</strong> What the template says once about every member of a collection: what a member is, and which folders it holds. <code>Context</code>’s member type is a bounded context, which holds <code>Application</code>, <code>Domain</code>, <code>Infrastructure</code> and <code>PublicApi</code>.</li></ul>
+<p>Each folder and each member type has a <strong>meaning</strong>, in words, that says what it is for. A folder with no folders
+of its own is a <em>leaf</em>: it is where the template stops and your code begins.</p>
+<p>Adding a member copies its member type’s shape into the template as folders of the member’s own, so adding one is a change to the
+template and makes a revision. Because every member has the same shape as its member type, Barnark doesn’t let you add a folder inside
+a member, or change one member alone.</p>
+<figure><div class="shot"><div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>Barnark · Template</span></div><img src="../assets/screens/ark-template.webp" width="2560" height="2000" loading="lazy" alt="The Template tab for the hotel project. It shows Hotel’s tree: Context, a fixed folder, holds a member type also called Context, and then the members FrontDesk, Property and Reservation. Each row has its meaning and says whether it is a fixed folder, a member type or a member. Tags appear as coloured labels."></div><figcaption>The Template tab: fixed folders, a member type and its members, each with its meaning.</figcaption></figure>
+<aside class="callout note"><p><strong>Note.</strong> The command line calls what a folder offers a <em>slot</em>: <code>template:offers</code> lists them and <code>template:new</code> takes one by name. A slot is a member type.</p></aside>
+<h2 id="tags">Tags <a class="anchor" href="#tags" aria-label="Link to this section">#</a></h2>
+<p>A template can tag its folders, to say what part each plays. Domain Driven Design tags its layers: <code>Application</code>,
+<code>Domain</code>, <code>Infrastructure</code> and <code>Transport</code>. Package App tags each context’s <code>Application</code> and
+<code>Infrastructure</code>. A tag has a meaning, and a folder carries the tags of its kind of folder, so every context you add brings its
+layers’ tags. A folder the template has no place for carries none.</p>
+<p>The browser app shows tags as coloured labels beside a folder’s name, and can pick one out so that you see only the folders that
+carry it and the folders above them, every context’s <code>Application</code> together, for instance.</p>
+<p>Next: <a href="choose.html">choose and clone an architecture</a>.</p>
+        <div class="docs-next"><a href="index.html">← Overview</a><a href="choose.html">Choose and clone an architecture →</a></div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Barnark · © Roger Barnfather</span>
+      <nav aria-label="Footer">
+        <a href="../index.html">Introduction</a>
+        <a href="../philosophy.html">Philosophy</a>
+        <a href="../quick-start.html">Quick start</a>
+        <a href="index.html" aria-current="page">Documentation</a>
+        <a href="https://rogerbarnfather.github.io/barn-website/">Barn</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

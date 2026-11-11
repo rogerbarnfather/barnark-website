@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>When something goes wrong · Barnark</title>
+  <meta name="description" content="The messages Barnark gives when something goes wrong, what each means and what to do.">
+  <link rel="icon" href="../assets/barnark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/base/base.css">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-brand="ark">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="wordmark" href="../index.html"><svg class="mark tool-mark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 14.5h20l-3.2 5.5H5.2zM6.5 13V9.5L12 5.5l5.5 4V13z"/></svg>Barnark</a>
+      <nav aria-label="Barnark">
+        <ul class="nav">
+          <li><a href="../philosophy.html">Philosophy</a></li>
+          <li><a href="../quick-start.html">Quick start</a></li>
+          <li><a href="index.html" aria-current="page">Documentation</a></li>
+          <li><a href="https://rogerbarnfather.github.io/barn-website/">Barn</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="docs wrap wide">
+      <nav class="docs-nav" aria-label="Documentation"><h2>Start</h2><ul><li><a href="index.html">Overview</a></li><li><a href="templates.html">Templates, bound and unbound</a></li></ul><h2>Tasks</h2><ul><li><a href="choose.html">Choose and clone an architecture</a></li><li><a href="grow.html">Add folders to your template</a></li><li><a href="check.html">Check the project</a></li><li><a href="yours.html">Keep templates of your own</a></li><li><a href="history.html">Revisions and history</a></li></ul><h2>Tools</h2><ul><li><a href="gui.html">The browser app</a></li><li><a href="cli.html">Command reference</a></li><li><a href="php.html">From PHP</a></li><li><a href="install.html">Installation</a></li><li><a href="data.html">Where your data lives</a></li></ul><h2>Reference</h2><ul><li><a href="glossary.html">Glossary</a></li><li><a href="troubleshooting.html" aria-current="page">When something goes wrong</a></li></ul></nav>
+      <article class="docs-article">
+        <h1>When something goes wrong</h1>
+        <p class="lede">The messages you will meet, and what to do about them.</p>
+<p>These are the messages you are most likely to meet, in Barnark’s own words, each with what it means and what to do. The messages shown were produced by the real commands; paths are shortened with “…”.</p>
+<h2 id="setting-up">Setting up <a class="anchor" href="#setting-up" aria-label="Link to this section">#</a></h2>
+<h3 id="no-barn">There is no barn <a class="anchor" href="#no-barn" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:list
+ [ERROR] There is no barn in "…/hotel" or any folder above it: no .barn folder
+         was found. Start one with `barnark init`.</code></pre><p>Barnark only works inside a barn, and looks for a <code>.barn/</code> folder in the current folder and every folder above it.</p><p><strong>What to do:</strong> run <code>vendor/bin/barnark init</code> at the project’s root, or run the command from inside the project.</p>
+<h3 id="no-template">No template is bound here <a class="anchor" href="#no-template" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:check
+Barn: …/hotel
+
+ [ERROR] No template is bound here. Clone one into the project with `barnark
+         template:clone &lt;template&gt; &lt;name&gt; &lt;directory&gt;`, or pass a template and
+         directory to check.</code></pre><p>The project has no bound template yet, so there is nothing to check.</p><p><strong>What to do:</strong> clone one with <code>template:clone</code>, or name a shipped template and a directory to check.</p>
+<h3 id="several-folders">binds several folders <a class="anchor" href="#several-folders" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:list
+Barn: …/hotel
+
+ [ERROR] …/hotel/.barn/barnark/tracked-folders.json binds several folders. A
+         project now binds one template, to one folder, and Barnark converts
+         no old record. Delete the file to start afresh.</code></pre><p>Barnark binds one template to one folder, and converts no older record.</p><p><strong>What to do:</strong> delete the file to start afresh, or move the old records out. <a href="data.html#older">Where your data lives</a> says how to keep an older folder bound.</p>
+<h3 id="unreadable">can’t be read <a class="anchor" href="#unreadable" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:check
+Barn: …/hotel
+
+Checking …/hotel/src against 'Hotel'
+====================================
+
+ [ERROR] Template 'Hotel' can't be read: The revision file
+         '…/hotel/.barn/barnark/catalogue/template-history' cannot be used:
+         Syntax error.</code></pre><p>A template file was changed outside Barnark.</p><p><strong>What to do:</strong> restore the file from git. Don’t edit the template files by hand.</p>
+<h2 id="cloning">Cloning and copying <a class="anchor" href="#cloning" aria-label="Link to this section">#</a></h2>
+<h3 id="already-has">The project has its template already <a class="anchor" href="#already-has" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:clone Library Pricing ./lib
+Barn: …/hotel
+
+ [ERROR] The project has its template already: 'Hotel', bound to '/src'.</code></pre><p>A project has one bound template, and another clone is refused.</p><p><strong>What to do:</strong> copy the template you want with <code>template:copy</code> and keep it unbound, or work in the bound template.</p>
+<h3 id="name">can’t name a template <a class="anchor" href="#name" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:copy Hotel "domain driven design"
+Barn: …/hotel
+
+ [ERROR] 'domain driven design' can't name a template: a shipped template is
+         called 'Domain Driven Design'.</code></pre><p>A template’s name can’t be one the project already has, or a shipped template’s name, ignoring case.</p><p><strong>What to do:</strong> choose another name.</p>
+<h3 id="no-such-template">There is no template called <a class="anchor" href="#no-such-template" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:clone Nope X ./lib
+Barn: …/hotel
+
+ [ERROR] There is no template called 'Nope'. `barnark template:list` lists
+         them.</code></pre><p>The name doesn’t match a shipped template or one of yours.</p><p><strong>What to do:</strong> run <code>template:list</code> and use a name from it, in quotes if it has spaces.</p>
+<h3 id="parent">Folder … does not exist <a class="anchor" href="#parent" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:clone Library X ./nope/lib
+Barn: …/hotel
+
+ [ERROR] Folder '/nope' does not exist. Create that one first.</code></pre><p>The folder above the one a clone would make doesn’t exist.</p><p><strong>What to do:</strong> make the folder above it first, or clone into a folder that sits directly in the barn.</p>
+<h2 id="adding">Adding folders <a class="anchor" href="#adding" aria-label="Link to this section">#</a></h2>
+<h3 id="no-slot">does not offer a … <a class="anchor" href="#no-slot" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:new Widget Invoices app
+Barn: …/hotel
+
+ [ERROR] 'Shop' does not offer a 'Widget' in 'app'.
+
+It offers:
+  Feature</code></pre><p>The folder’s template has no slot of that name there. Barnark lists the ones it has, rather than guessing.</p><p><strong>What to do:</strong> use a slot from the list, or run <code>template:offers &lt;path&gt;</code> to see what the folder offers.</p>
+<h3 id="case">differs from it only by case <a class="anchor" href="#case" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:new Feature invoices lib/Internal/Feature
+Barn: …/hotel
+
+ [ERROR] 'invoices' can't name a member: the folder 'Invoices' is already
+         here, and differs from it only by case.</code></pre><p>A member’s name can’t be one that is already there, even ignoring case.</p><p><strong>What to do:</strong> choose another name.</p>
+<h3 id="collection">… is a collection, which holds only members <a class="anchor" href="#collection" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:add-folder lib/Internal/Feature/Extras "x"
+Barn: …/hotel
+
+ [ERROR] The template can't take that change at 'lib/Internal/Feature/Extras':
+         'Internal/Feature' is a collection, which holds only members of its
+         member type.</code></pre><p>A folder inside a collection would have to be a member, so that every member keeps the shape of its member type.</p><p><strong>What to do:</strong> use <code>template:new</code> to add a member, or add the folder somewhere else.</p>
+<h3 id="no-folder">the template has no folder … <a class="anchor" href="#no-folder" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:add-folder src/Foo/Bar "x"
+Barn: …/hotel
+
+ [ERROR] The template can't take that change at 'src/Foo/Bar': the template has no folder
+         'Foo'.</code></pre><p>The folder above the one you are adding isn’t in the template.</p><p><strong>What to do:</strong> add the folder above first.</p>
+<h2 id="checking">Checking <a class="anchor" href="#checking" aria-label="Link to this section">#</a></h2>
+<h3 id="inconsistencies">N inconsistency(ies) found <a class="anchor" href="#inconsistencies" aria-label="Link to this section">#</a></h3><p>The check found folders that are missing or unexpected, and exits with status 1.</p><p><strong>What to do:</strong> <a href="check.html">Check the project</a> says what to do about each.</p>
+<h3 id="shipped-template-name">There is no shipped template called ‘./src’ <a class="anchor" href="#shipped-template-name" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:check ./src "Domain Driven Design"
+Barn: …/hotel
+
+ [ERROR] There is no shipped template called './src'.</code></pre><p>With two arguments, the first names a shipped template and the second the directory.</p><p><strong>What to do:</strong> put the template first: <code>template:check "Domain Driven Design" ./src</code>. For the bound folder, leave both out or give only the folder.</p>
+<h2 id="deleting">Deleting <a class="anchor" href="#deleting" aria-label="Link to this section">#</a></h2>
+<h3 id="delete-bound">is the project’s template … cannot be deleted <a class="anchor" href="#delete-bound" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:delete Pricing -n
+Barn: …/hotel
+
+ [ERROR] 'Pricing' is the project's template, bound to '/lib', and cannot be
+         deleted.</code></pre><p>Shipped templates and the project’s own can’t be deleted.</p><p><strong>What to do:</strong> delete one of your own unbound templates instead. Ending the bound template’s life is not built yet.</p>
+<h3 id="delete-asks">Nothing was changed <a class="anchor" href="#delete-asks" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:delete "Our Library"
+Barn: …/hotel
+
+ Delete 'Our Library' with every revision? Only git brings it back. (yes/no) [no]:
+ &gt; Nothing was changed.</code></pre><p>Barnark asked whether to delete and did not get a yes, such as when it was run where it can’t ask.</p><p><strong>What to do:</strong> if you mean it, add <code>-n</code>. Only git brings a deleted template back.</p>
+<h2 id="browser-app">The browser app <a class="anchor" href="#browser-app" aria-label="Link to this section">#</a></h2>
+<h3 id="port">The port is taken <a class="anchor" href="#port" aria-label="Link to this section">#</a></h3><p><code>barnark gui</code> picks the next free port when the one asked for is in use, and prints the address it chose.</p><p><strong>What to do:</strong> use the address it prints, or pass <code>--port</code>.</p>
+<h3 id="no-barn-gui">The page says there is no barn <a class="anchor" href="#no-barn-gui" aria-label="Link to this section">#</a></h3><p>The server was started where no <code>.barn/</code> folder was found at or above the current folder.</p><p><strong>What to do:</strong> let the page make one in the folder it was started in, or start it from inside the project.</p>
+        <div class="docs-next"><a href="glossary.html">← Glossary</a><span></span></div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Barnark · © Roger Barnfather</span>
+      <nav aria-label="Footer">
+        <a href="../index.html">Introduction</a>
+        <a href="../philosophy.html">Philosophy</a>
+        <a href="../quick-start.html">Quick start</a>
+        <a href="index.html" aria-current="page">Documentation</a>
+        <a href="https://rogerbarnfather.github.io/barn-website/">Barn</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

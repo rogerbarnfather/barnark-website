@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Revisions and history · Barnark</title>
+  <meta name="description" content="How Barnark keeps every template as immutable revisions, what makes a revision, and how to read the history in the browser app.">
+  <link rel="icon" href="../assets/barnark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/base/base.css">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-brand="ark">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="wordmark" href="../index.html"><svg class="mark tool-mark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 14.5h20l-3.2 5.5H5.2zM6.5 13V9.5L12 5.5l5.5 4V13z"/></svg>Barnark</a>
+      <nav aria-label="Barnark">
+        <ul class="nav">
+          <li><a href="../philosophy.html">Philosophy</a></li>
+          <li><a href="../quick-start.html">Quick start</a></li>
+          <li><a href="index.html" aria-current="page">Documentation</a></li>
+          <li><a href="https://rogerbarnfather.github.io/barn-website/">Barn</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="docs wrap wide">
+      <nav class="docs-nav" aria-label="Documentation"><h2>Start</h2><ul><li><a href="index.html">Overview</a></li><li><a href="templates.html">Templates, bound and unbound</a></li></ul><h2>Tasks</h2><ul><li><a href="choose.html">Choose and clone an architecture</a></li><li><a href="grow.html">Add folders to your template</a></li><li><a href="check.html">Check the project</a></li><li><a href="yours.html">Keep templates of your own</a></li><li><a href="history.html" aria-current="page">Revisions and history</a></li></ul><h2>Tools</h2><ul><li><a href="gui.html">The browser app</a></li><li><a href="cli.html">Command reference</a></li><li><a href="php.html">From PHP</a></li><li><a href="install.html">Installation</a></li><li><a href="data.html">Where your data lives</a></li></ul><h2>Reference</h2><ul><li><a href="glossary.html">Glossary</a></li><li><a href="troubleshooting.html">When something goes wrong</a></li></ul></nav>
+      <article class="docs-article">
+        <h1>Revisions and history</h1>
+        <p class="lede">A template is a decision, and a decision keeps its history.</p>
+<p>Each of a project’s templates, bound or not, is kept as <strong>revisions</strong>. None is changed in place: every change adds
+a revision, so the template can always be read as it was. Nothing is thrown away by a change, and git, which holds <code>.barn/</code>
+with your code, keeps the files.</p>
+<h2 id="what">What makes a revision <a class="anchor" href="#what" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table><thead><tr><th scope="col">What you do</th><th scope="col">The revision’s reason</th></tr></thead><tbody><tr><td>Clone a template</td><td><em>Created with its folder.</em></td></tr><tr><td>Copy a template</td><td><em>Created as a copy.</em></td></tr><tr><td>Add a member</td><td><em>Added Context/Reservation.</em> (the member’s place in the template)</td></tr><tr><td>Add a folder of your own</td><td><em>Added Scratch.</em></td></tr><tr><td>Change what a folder means</td><td><em>Changed what Scratch means.</em></td></tr></tbody></table></div>
+<p>Barnark writes each reason, so there is nothing to type. Adding or deleting a member makes a revision, and so does changing what a folder means.</p>
+<h2 id="read">Read the history <a class="anchor" href="#read" aria-label="Link to this section">#</a></h2>
+<p>The <strong>History</strong> tab of the browser app lists the template’s revisions, newest first, with the time and the
+reason, and marks the current one. Choose a revision to see it as a read-only tree of its fixed folders, member types and members.
+An old revision can be looked at, and is not restored.</p>
+<figure><div class="shot"><div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>Barnark · History</span></div><img src="../assets/screens/ark-history.webp" width="2560" height="2100" loading="lazy" alt="The History tab for Hotel. A list of five revisions, newest first, such as “Added Context/Reservation/Domain/Booking.” and “Created with its folder.”, with the current one marked. Beside it is the template’s current tree, with its description, its four tags and its folders."></div><figcaption>Revisions on the left, and the template as it reads now.</figcaption></figure>
+<p>The command line has no history command. The files are plain JSON in <code>.barn/barnark/catalogue/</code>, and
+<a href="data.html">Where your data lives</a> says which is which. Don’t edit them by hand.</p>
+        <div class="docs-next"><a href="yours.html">← Keep templates of your own</a><a href="gui.html">The browser app →</a></div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Barnark · © Roger Barnfather</span>
+      <nav aria-label="Footer">
+        <a href="../index.html">Introduction</a>
+        <a href="../philosophy.html">Philosophy</a>
+        <a href="../quick-start.html">Quick start</a>
+        <a href="index.html" aria-current="page">Documentation</a>
+        <a href="https://rogerbarnfather.github.io/barn-website/">Barn</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

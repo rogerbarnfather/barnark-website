@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Add folders to your template · Barnark</title>
+  <meta name="description" content="How to add members and folders of your own to a Barnark template, and change what a folder means, with the folders kept in step.">
+  <link rel="icon" href="../assets/barnark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/base/base.css">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-brand="ark">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="wordmark" href="../index.html"><svg class="mark tool-mark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 14.5h20l-3.2 5.5H5.2zM6.5 13V9.5L12 5.5l5.5 4V13z"/></svg>Barnark</a>
+      <nav aria-label="Barnark">
+        <ul class="nav">
+          <li><a href="../philosophy.html">Philosophy</a></li>
+          <li><a href="../quick-start.html">Quick start</a></li>
+          <li><a href="index.html" aria-current="page">Documentation</a></li>
+          <li><a href="https://rogerbarnfather.github.io/barn-website/">Barn</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="docs wrap wide">
+      <nav class="docs-nav" aria-label="Documentation"><h2>Start</h2><ul><li><a href="index.html">Overview</a></li><li><a href="templates.html">Templates, bound and unbound</a></li></ul><h2>Tasks</h2><ul><li><a href="choose.html">Choose and clone an architecture</a></li><li><a href="grow.html" aria-current="page">Add folders to your template</a></li><li><a href="check.html">Check the project</a></li><li><a href="yours.html">Keep templates of your own</a></li><li><a href="history.html">Revisions and history</a></li></ul><h2>Tools</h2><ul><li><a href="gui.html">The browser app</a></li><li><a href="cli.html">Command reference</a></li><li><a href="php.html">From PHP</a></li><li><a href="install.html">Installation</a></li><li><a href="data.html">Where your data lives</a></li></ul><h2>Reference</h2><ul><li><a href="glossary.html">Glossary</a></li><li><a href="troubleshooting.html">When something goes wrong</a></li></ul></nav>
+      <article class="docs-article">
+        <h1>Add folders to your template</h1>
+        <p class="lede">Members of collections, folders of your own, and what each does to the template.</p>
+<p>A template says what <em>may</em> be created in a folder, and Barnark creates it with the template’s whole structure,
+so the template and the folders stay in step. Two things can be added: a <strong>member</strong> of a collection, and a
+<strong>folder of your own</strong>.</p>
+<h2 id="offers">Ask a folder what it offers <a class="anchor" href="#offers" aria-label="Link to this section">#</a></h2>
+<p><code>template:offers</code> lists what can be created in a folder. The browser app draws its “Create New …” buttons from the same list.</p>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:offers src/Context
+Barn: …/hotel
+
+Slots offered in /src/Context by 'Hotel'
+========================================
+
+ --------- --------- -------------------------------------------------
+  Slot      Key       Create it with
+ --------- --------- -------------------------------------------------
+  Context   Context   barnark template:new Context &lt;name&gt; src/Context
+ --------- --------- -------------------------------------------------</code></pre>
+<p>The last column is the command to run. A folder that holds only fixed parts offers nothing:</p>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:offers src/Context/Reservation
+Barn: …/hotel
+
+Slots offered in /src/Context/Reservation by 'Hotel'
+====================================================
+
+ None. Nothing named can be created directly here.
+
+A folder offers slots only where the part or slot it stands for has slots of its own.</code></pre>
+<p>A folder also offers nothing when the template names nothing inside it, or when it sits outside the template altogether.</p>
+<h2 id="members">Add a member <a class="anchor" href="#members" aria-label="Link to this section">#</a></h2>
+<p><code>template:new</code> adds a member you name to a collection. The template records it as a new revision, and the
+member’s folder arrives with the folders its member type holds. A <code>Context</code> comes with its <code>Domain</code>,
+<code>Application</code>, <code>Infrastructure</code> and <code>PublicApi</code>.</p>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:new Context Reservation src/Context
+Barn: …/hotel
+
+New Context 'Reservation'
+=========================
+
+  …/hotel/src/Context/Reservation
+  …/hotel/src/Context/Reservation/Application
+  …/hotel/src/Context/Reservation/Application/Command
+  …
+
+ [OK] Created …/hotel/src/Context/Reservation, added to the template as
+      Context.
+
+Check it with `barnark template:check`.</code></pre>
+<p>Members nest. A context’s <code>Domain</code> folder is itself a collection of aggregates:</p>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:offers src/Context/Reservation/Domain
+Barn: …/hotel
+
+Slots offered in /src/Context/Reservation/Domain by 'Hotel'
+===========================================================
+
+ ----------- ----------- ----------------------------------------------------------------------
+  Slot        Key         Create it with
+ ----------- ----------- ----------------------------------------------------------------------
+  Aggregate   Aggregate   barnark template:new Aggregate &lt;name&gt; src/Context/Reservation/Domain
+ ----------- ----------- ----------------------------------------------------------------------</code></pre>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:new Aggregate Booking src/Context/Reservation/Domain
+Barn: …/hotel
+
+New Aggregate 'Booking'
+=======================
+
+  …/hotel/src/Context/Reservation/Domain/Booking
+
+ [OK] Created …/hotel/src/Context/Reservation/Domain/Booking, added to the
+      template as Aggregate.
+
+Check it with `barnark template:check`.</code></pre>
+<p>The first argument is the slot as <code>template:offers</code> names it. Ask for one the folder doesn’t offer and Barnark lists
+the ones it does, rather than guessing:</p>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:new Widget Invoices app
+Barn: …/hotel
+
+ [ERROR] 'Shop' does not offer a 'Widget' in 'app'.
+
+It offers:
+  Feature</code></pre>
+<h3 id="features">A feature at a time <a class="anchor" href="#features" aria-label="Link to this section">#</a></h3>
+<p>Feature Based Architecture makes only its folder, then each feature arrives with the folders a feature holds:</p>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:new Feature Invoices app
+Barn: …/hotel
+
+New Feature 'Invoices'
+======================
+
+  …/hotel/app/Invoices
+  …/hotel/app/Invoices/Controller
+  …/hotel/app/Invoices/Entity
+  …/hotel/app/Invoices/Exception
+  …/hotel/app/Invoices/Repository
+  …</code></pre>
+<pre><code><span class="p">$ </span>find app | sort
+app
+app/Invoices
+app/Invoices/Controller
+app/Invoices/Controller/.gitkeep
+app/Invoices/Entity
+app/Invoices/Entity/.gitkeep
+app/Invoices/Exception
+app/Invoices/Exception/.gitkeep
+app/Invoices/Repository
+app/Invoices/Repository/.gitkeep
+app/Invoices/Value
+app/Invoices/Value/.gitkeep</code></pre>
+<h3 id="names">Names <a class="anchor" href="#names" aria-label="Link to this section">#</a></h3>
+<p>A member’s name can’t be one that the collection already has, even ignoring case. A member already in the template is
+refused. Nothing already on disk is overwritten, so running a command again fills in only what is missing. This example ran in a project whose template was cloned from Library, with a feature <em>Invoices</em> already added:</p>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:new Feature invoices lib/Internal/Feature
+Barn: …/hotel
+
+ [ERROR] 'invoices' can't name a member: the folder 'Invoices' is already
+         here, and differs from it only by case.</code></pre>
+<h2 id="add-folder">Add a folder of your own <a class="anchor" href="#add-folder" aria-label="Link to this section">#</a></h2>
+<p>A folder that is none of the template’s members can be added to the template with
+<code>template:add-folder &lt;path&gt; &lt;meaning&gt;</code>: a new revision with the folder in it, saying what belongs
+there, and then the folder. A folder already made by hand is kept as it is, so this is also how a folder the check reports as
+<em>unexpected</em> is taken in.</p>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:add-folder src/Scratch "Throwaway experiments."
+Barn: …/hotel
+
+ [OK] Added /src/Scratch to the template.
+
+Check it with `barnark template:check`.</code></pre>
+<p>One folder is added at a time. A folder inside one you have taken in is added on its own, and the folder above it must
+be in the template already. A collection holds only members, so a folder inside one is refused. In the same Library project, <code>Internal/Feature</code> is a collection:</p>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:add-folder lib/Internal/Feature/Extras "x"
+Barn: …/hotel
+
+ [ERROR] The template can't take that change at 'lib/Internal/Feature/Extras':
+         'Internal/Feature' is a collection, which holds only members of its
+         member type.</code></pre>
+<h2 id="meaning">Change what a folder means <a class="anchor" href="#meaning" aria-label="Link to this section">#</a></h2>
+<p><code>template:change-meaning</code> changes the words that say what a folder of the template, or the bound folder itself, is for.
+It is a revision of the template. No folder changes.</p>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:change-meaning src/Scratch "Notes."
+Barn: …/hotel
+
+ [OK] Changed what /src/Scratch means.</code></pre>
+<p>A member’s meaning is its member type’s, so it can’t be changed on its own. A folder that the template uses in several
+places can’t be changed in only one, since the change would reach each.</p>
+<h2 id="where">Where to run the commands <a class="anchor" href="#where" aria-label="Link to this section">#</a></h2>
+<p>Every command prints the barn’s root first and works from any folder inside the barn. Paths are relative to the root.
+A command that takes a path to create in, such as <code>template:new</code>, takes <code>.</code> to mean the folder you are in:</p>
+<pre><code><span class="p">$ </span>cd src/Context
+<span class="p">$ </span>../../vendor/bin/barnark template:new Context FrontDesk .</code></pre>
+<p>Next: <a href="check.html">check the project</a>.</p>
+        <div class="docs-next"><a href="choose.html">← Choose and clone an architecture</a><a href="check.html">Check the project →</a></div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Barnark · © Roger Barnfather</span>
+      <nav aria-label="Footer">
+        <a href="../index.html">Introduction</a>
+        <a href="../philosophy.html">Philosophy</a>
+        <a href="../quick-start.html">Quick start</a>
+        <a href="index.html" aria-current="page">Documentation</a>
+        <a href="https://rogerbarnfather.github.io/barn-website/">Barn</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

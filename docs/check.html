@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Check the project · Barnark</title>
+  <meta name="description" content="How the Barnark check compares a project folder with its template and reports missing and unexpected folders.">
+  <link rel="icon" href="../assets/barnark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/base/base.css">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-brand="ark">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="wordmark" href="../index.html"><svg class="mark tool-mark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 14.5h20l-3.2 5.5H5.2zM6.5 13V9.5L12 5.5l5.5 4V13z"/></svg>Barnark</a>
+      <nav aria-label="Barnark">
+        <ul class="nav">
+          <li><a href="../philosophy.html">Philosophy</a></li>
+          <li><a href="../quick-start.html">Quick start</a></li>
+          <li><a href="index.html" aria-current="page">Documentation</a></li>
+          <li><a href="https://rogerbarnfather.github.io/barn-website/">Barn</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="docs wrap wide">
+      <nav class="docs-nav" aria-label="Documentation"><h2>Start</h2><ul><li><a href="index.html">Overview</a></li><li><a href="templates.html">Templates, bound and unbound</a></li></ul><h2>Tasks</h2><ul><li><a href="choose.html">Choose and clone an architecture</a></li><li><a href="grow.html">Add folders to your template</a></li><li><a href="check.html" aria-current="page">Check the project</a></li><li><a href="yours.html">Keep templates of your own</a></li><li><a href="history.html">Revisions and history</a></li></ul><h2>Tools</h2><ul><li><a href="gui.html">The browser app</a></li><li><a href="cli.html">Command reference</a></li><li><a href="php.html">From PHP</a></li><li><a href="install.html">Installation</a></li><li><a href="data.html">Where your data lives</a></li></ul><h2>Reference</h2><ul><li><a href="glossary.html">Glossary</a></li><li><a href="troubleshooting.html">When something goes wrong</a></li></ul></nav>
+      <article class="docs-article">
+        <h1>Check the project</h1>
+        <p class="lede">Compare the folder with its template, and see where they differ.</p>
+<p>The check compares the project’s bound folder with its template and reports where they differ. Nobody has to declare
+that a project keeps to its architecture: the check says. Files are never checked, because a template says only what
+<em>folders</em> there are.</p>
+<h2 id="run">Run it <a class="anchor" href="#run" aria-label="Link to this section">#</a></h2>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:check
+Barn: …/hotel
+
+Checking …/hotel/src against 'Hotel'
+====================================
+
+ [OK] Conformant — no inconsistencies found.</code></pre>
+<p>With no arguments it checks the bound folder, wherever in the barn you run it. <code>template:check ./src</code> names
+the folder. The command exits with status 0 when the folder conforms and 1 when it doesn’t, so it can fail a build.</p>
+<h2 id="two-kinds">Missing and unexpected <a class="anchor" href="#two-kinds" aria-label="Link to this section">#</a></h2>
+<p>There are two kinds of inconsistency, reported separately.</p>
+<h3 id="unexpected">Unexpected <a class="anchor" href="#unexpected" aria-label="Link to this section">#</a></h3>
+<p>A folder on disk that the template doesn’t expect:</p>
+<pre><code><span class="p">$ </span>mkdir src/Scratch
+<span class="p">$ </span>vendor/bin/barnark template:check
+Barn: …/hotel
+
+Checking …/hotel/src against 'Hotel'
+====================================
+
+Unexpected — on disk, not expected here
+---------------------------------------
+
+  …/hotel/src/Scratch
+    This folder is not part of 'Hotel'.
+
+ [ERROR] 1 inconsistency(ies) found.
+
+Take a folder into the template with `barnark template:add-folder &lt;path&gt; &lt;meaning&gt;`, or add it as a member with `barnark template:new`.</code></pre>
+<p>For each, you decide. Take it into the template, saying what belongs there (<code>template:add-folder</code>, or
+<strong>Add to template</strong> in the browser app), or remove the folder, or leave it showing as an issue.</p>
+<h3 id="missing">Missing <a class="anchor" href="#missing" aria-label="Link to this section">#</a></h3>
+<p>A folder the template expects that isn’t on disk:</p>
+<pre><code><span class="p">$ </span>rm -rf src/Context/Reservation/Application
+<span class="p">$ </span>vendor/bin/barnark template:check
+Barn: …/hotel
+
+Checking …/hotel/src against 'Hotel'
+====================================
+
+Missing — expected here, not found on disk
+------------------------------------------
+
+  …/hotel/src/Context/Reservation/Application
+    Expected folder 'Application' here, but it does not exist.
+
+ [ERROR] 1 inconsistency(ies) found.</code></pre>
+<p>Make the folder again, or, if it should not exist, change the template.</p>
+<h2 id="members">Your own members are checked where they are <a class="anchor" href="#members" aria-label="Link to this section">#</a></h2>
+<p>A template describes a shape, not your code. The members you added are part of the template, so the check finds your
+real contexts and aggregates where they actually are, and checks each against its member type. A folder you make by hand in a
+collection can only be a member of it, so it is checked as one, and reported as missing its folders:</p>
+<pre><code><span class="p">$ </span>mkdir src/Context/Hand
+<span class="p">$ </span>vendor/bin/barnark template:check
+Barn: …/hotel
+
+Checking …/hotel/src against 'Hotel'
+====================================
+
+Missing — expected here, not found on disk
+------------------------------------------
+
+  …/hotel/src/Context/Hand/Application
+    Expected folder 'Application' here, but it does not exist.
+  …/hotel/src/Context/Hand/Domain
+    Expected folder 'Domain' here, but it does not exist.
+  …/hotel/src/Context/Hand/Infrastructure
+    Expected folder 'Infrastructure' here, but it does not exist.</code></pre>
+<p>A folder made by hand anywhere else is reported as unexpected.</p>
+<h2 id="explicit">Check a directory against a shipped template <a class="anchor" href="#explicit" aria-label="Link to this section">#</a></h2>
+<p>To check a folder that isn’t the bound one, name a shipped template first and the directory second. There is no record of
+members to read, so only the folders the template settles on its own are applied.</p>
+<pre><code><span class="p">$ </span>mkdir -p lib2/Api lib2/Stray
+<span class="p">$ </span>vendor/bin/barnark template:check Library ./lib2
+Barn: …/hotel
+
+Checking ./lib2 against 'Library'
+=================================
+
+Missing — expected here, not found on disk
+------------------------------------------
+
+  ./lib2/Internal
+    Expected folder 'Internal' here, but it does not exist.
+  ./lib2/Api/Contract
+    Expected folder 'Contract' here, but it does not exist.
+  ./lib2/Api/Exception
+    Expected folder 'Exception' here, but it does not exist.
+  ./lib2/Api/Factory
+    Expected folder 'Factory' here, but it does not exist.
+  ./lib2/Api/ValueObject
+    Expected folder 'ValueObject' here, but it does not exist.
+
+Unexpected — on disk, not expected here
+---------------------------------------
+
+  ./lib2/Stray
+    This folder is not part of 'Library'.
+
+ [ERROR] 6 inconsistency(ies) found.</code></pre>
+<h2 id="gui">In the browser app <a class="anchor" href="#gui" aria-label="Link to this section">#</a></h2>
+<p>The <strong>Check</strong> tab runs the same check. <strong>Re-run</strong> checks again, and each unexpected folder offers
+<strong>Add to template</strong>: give it a meaning and it becomes part of the template as it is, and the check runs again.</p>
+<figure><div class="shot"><div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>Barnark · Check</span></div><img src="../assets/screens/ark-check.webp" width="2560" height="1040" loading="lazy" alt="The Check tab for the hotel project, with a green tick and the words “Conformant — no inconsistencies found.” A Re-run button is at the right."></div><figcaption>A conforming folder.</figcaption></figure>
+<figure><div class="shot"><div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>Barnark · Check</span></div><img src="../assets/screens/ark-check-unexpected.webp" width="2560" height="1240" loading="lazy" alt="The Check tab reporting one inconsistency: the folder /src/Scratch is not part of Hotel. The row has an Add to template button."></div><figcaption>An unexpected folder, and the button to take it into the template.</figcaption></figure>
+<p>Next: <a href="yours.html">keep templates of your own</a>.</p>
+        <div class="docs-next"><a href="grow.html">← Add folders to your template</a><a href="yours.html">Keep templates of your own →</a></div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Barnark · © Roger Barnfather</span>
+      <nav aria-label="Footer">
+        <a href="../index.html">Introduction</a>
+        <a href="../philosophy.html">Philosophy</a>
+        <a href="../quick-start.html">Quick start</a>
+        <a href="index.html" aria-current="page">Documentation</a>
+        <a href="https://rogerbarnfather.github.io/barn-website/">Barn</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

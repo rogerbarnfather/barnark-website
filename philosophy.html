@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Philosophy · Barnark</title>
+  <meta name="description" content="Why Barnark copies architecture templates instead of referring to them, never privileges a style, and checks conformance instead of asserting it.">
+  <link rel="icon" href="assets/barnark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/base/base.css">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body data-brand="ark">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="wordmark" href="index.html"><svg class="mark tool-mark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 14.5h20l-3.2 5.5H5.2zM6.5 13V9.5L12 5.5l5.5 4V13z"/></svg>Barnark</a>
+      <nav aria-label="Barnark">
+        <ul class="nav">
+          <li><a href="philosophy.html" aria-current="page">Philosophy</a></li>
+          <li><a href="quick-start.html">Quick start</a></li>
+          <li><a href="docs/index.html">Documentation</a></li>
+          <li><a href="https://rogerbarnfather.github.io/barn-website/">Barn</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section">
+      <div class="wrap prose">
+        <h1>Philosophy</h1>
+        <p class="lede">Why Barnark works the way it does.</p>
+<p>Barnark is built on a few decisions. Each one refuses something common in how a project’s architecture is
+kept, and each shows in how the tool behaves.</p>
+<h2 id="never-break">The software must never break what a team has built <a class="anchor" href="#never-break" aria-label="Link to this section">#</a></h2>
+<p>A team that makes a mess of its own template is responsible for that. But if a team builds a fine architecture
+of its own and a new version of the tool tells them their whole codebase is wrong, that is the tool’s fault.</p>
+<p>So Barnark <strong>copies and never refers</strong>. Cloning a template makes a template of your own, under a name you give it,
+with nothing tying it to the one it came from. When a later Barnark ships a changed Domain Driven Design, yours doesn’t
+change. The shipped templates are read-only, and nobody calls their project “Domain Driven Design”, so a shipped template’s
+name can’t be used for one of yours.</p>
+<h2 id="no-style">No style is privileged <a class="anchor" href="#no-style" aria-label="Link to this section">#</a></h2>
+<p>Barnark keeps a catalogue: Domain Driven Design, Feature Based Architecture, Model View Controller, Library and
+Package App. None of them is a belief. A catalogue entry is a starting point, and you decide what your project’s shape is. Where
+a shape suits a kind of project, the description says so, and no more.</p>
+<p>A template says only what <em>folders</em> there are. It never says what code goes in them, so Barnark is not a linter,
+and it has no opinion on your files.</p>
+<h2 id="conformance">Conformance is derived, not asserted <a class="anchor" href="#conformance" aria-label="Link to this section">#</a></h2>
+<p>Nobody declares a codebase well architected. <code>template:check</code> compares the project’s folders with its
+template and reports where they differ, as <em>missing</em> or <em>unexpected</em>. It comes back clean or it doesn’t.</p>
+<p>When someone changes folders by hand, the check shows it. For each unexpected folder you either take it into the template,
+saying what belongs there, or leave it showing as an issue. Nothing is silently accepted, and nothing is silently undone.</p>
+<h2 id="together">The template and the folders change together <a class="anchor" href="#together" aria-label="Link to this section">#</a></h2>
+<p>A template that describes folders which are not there, or folders that the template doesn’t know about, is not much
+use. So when you add a member to a collection, such as a new <em>Context</em>, the template records it and the folders appear
+on disk at that moment. Using Barnark keeps the two consistent.</p>
+<h2 id="history">A decision keeps its history <a class="anchor" href="#history" aria-label="Link to this section">#</a></h2>
+<p>A template is kept as <strong>revisions</strong>, and none is changed in place. Its first revision is the copy.
+Adding or deleting a member, adding a folder and changing what a folder means each make a new revision, with a reason Barnark
+writes, such as “Added Context/Reservation.” A revision can be looked at later as a read-only tree, so the current shape is
+understandable together with how it came to be.</p>
+<h2 id="restrictive">Restrictive on purpose <a class="anchor" href="#restrictive" aria-label="Link to this section">#</a></h2>
+<p>Every member of a collection has the same shape: every <em>Context</em> has the same <em>Domain</em>,
+<em>Application</em>, <em>Infrastructure</em> and <em>PublicApi</em>. Barnark doesn’t let you change one member alone, or
+add a folder inside one, because then it would no longer match its kind. If a member needs a different shape, it is a
+different kind of folder, and is one the template should say so about.</p>
+<h2 id="refusals">What it refuses to be <a class="anchor" href="#refusals" aria-label="Link to this section">#</a></h2>
+<ul><li>A code generator. It never creates a file in your folders, apart from a <code>.gitkeep</code> so that git keeps an empty folder.</li><li>A judge of existing code. It is for keeping a new project well shaped from the start.</li><li>Tied to one architectural style, or to one language. A template is folders.</li><li>A tool that guesses. Where it cannot be sure, it refuses and says why.</li></ul>
+<p>Next: the <a href="quick-start.html">quick start</a>, or <a href="docs/templates.html">templates, bound and unbound</a> in detail.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Barnark · © Roger Barnfather</span>
+      <nav aria-label="Footer">
+        <a href="index.html">Introduction</a>
+        <a href="philosophy.html" aria-current="page">Philosophy</a>
+        <a href="quick-start.html">Quick start</a>
+        <a href="docs/index.html">Documentation</a>
+        <a href="https://rogerbarnfather.github.io/barn-website/">Barn</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

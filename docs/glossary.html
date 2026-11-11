@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Glossary · Barnark</title>
+  <meta name="description" content="The Barnark glossary: every term, in alphabetical order.">
+  <link rel="icon" href="../assets/barnark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/base/base.css">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-brand="ark">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="wordmark" href="../index.html"><svg class="mark tool-mark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 14.5h20l-3.2 5.5H5.2zM6.5 13V9.5L12 5.5l5.5 4V13z"/></svg>Barnark</a>
+      <nav aria-label="Barnark">
+        <ul class="nav">
+          <li><a href="../philosophy.html">Philosophy</a></li>
+          <li><a href="../quick-start.html">Quick start</a></li>
+          <li><a href="index.html" aria-current="page">Documentation</a></li>
+          <li><a href="https://rogerbarnfather.github.io/barn-website/">Barn</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="docs wrap wide">
+      <nav class="docs-nav" aria-label="Documentation"><h2>Start</h2><ul><li><a href="index.html">Overview</a></li><li><a href="templates.html">Templates, bound and unbound</a></li></ul><h2>Tasks</h2><ul><li><a href="choose.html">Choose and clone an architecture</a></li><li><a href="grow.html">Add folders to your template</a></li><li><a href="check.html">Check the project</a></li><li><a href="yours.html">Keep templates of your own</a></li><li><a href="history.html">Revisions and history</a></li></ul><h2>Tools</h2><ul><li><a href="gui.html">The browser app</a></li><li><a href="cli.html">Command reference</a></li><li><a href="php.html">From PHP</a></li><li><a href="install.html">Installation</a></li><li><a href="data.html">Where your data lives</a></li></ul><h2>Reference</h2><ul><li><a href="glossary.html" aria-current="page">Glossary</a></li><li><a href="troubleshooting.html">When something goes wrong</a></li></ul></nav>
+      <article class="docs-article">
+        <h1>Glossary</h1>
+        <p class="lede">One word, one meaning.</p>
+<p>Every term Barnark uses, in alphabetical order. A word means one thing across this whole site, and matches the words in the browser app and on the command line.</p>
+<dl class="glossary">
+<dt id="barn">Barn</dt><dd>A project with a <code>.barn/</code> folder at its root, where Barnark keeps its records.</dd>
+<dt id="bound-template">Bound template</dt><dd>The project’s one template that follows its one folder. It is made together with the folder by a clone, and every change to it is a revision. While a template is bound, another clone is refused.</dd>
+<dt id="check">Check</dt><dd>Comparing the bound folder with its template, and reporting what is missing and what is unexpected. Files are never checked.</dd>
+<dt id="clone">Clone</dt><dd>To copy a template under a name you give it, as the project’s template, and make its folder. The copy is tied to nothing.</dd>
+<dt id="collection">Collection</dt><dd>A folder of a template that holds only members, all of one member type, such as <code>Context</code> in Domain Driven Design.</dd>
+<dt id="copy">Copy</dt><dd>To make a new, unbound template of your own from any template, members included, with no folder. Changing one never changes the other.</dd>
+<dt id="dry-run">Dry run</dt><dd><code>--dry-run</code> on a clone: checks the template, the name and the target, and prints the folders it would make without writing anything.</dd>
+<dt id="fixed-folder">Fixed folder</dt><dd>A folder the template names itself, such as <code>Kernel</code> or <code>Api</code>. Every folder made to the template has it.</dd>
+<dt id="leaf">Leaf</dt><dd>A folder of a template with no folders of its own. It is where the template stops and your code begins.</dd>
+<dt id="meaning">Meaning</dt><dd>The words that say what a folder of a template, or a member type, is for.</dd>
+<dt id="member">Member</dt><dd>A folder you add to a collection and name, such as <code>Reservation</code> in <code>Context</code>. It is part of the template, so adding one makes a revision.</dd>
+<dt id="member-type">Member type</dt><dd>What a template says once about every member of a collection: what a member is, and which folders it holds.</dd>
+<dt id="missing">Missing</dt><dd>A folder the template expects that is not on disk. A kind of inconsistency the check reports.</dd>
+<dt id="revision">Revision</dt><dd>One version of a template. Every change adds one, with a reason Barnark writes, and none is changed in place.</dd>
+<dt id="shipped-template">Shipped template</dt><dd>One of the five templates Barnark ships: read-only, and changed only by a new Barnark.</dd>
+<dt id="slot">Slot</dt><dd>The command line’s word for a member type a folder offers. <code>template:offers</code> lists slots and <code>template:new</code> takes one.</dd>
+<dt id="tag">Tag</dt><dd>A label a template gives its folders to say what part each plays, such as <code>Domain</code>. A folder carries the tags of its kind of folder.</dd>
+<dt id="template">Template</dt><dd>A description of what folders a project has and what each is for. Barnark says template for every one, the bound one included.</dd>
+<dt id="unbound-template">Unbound template</dt><dd>A template of yours that is not attached to any folder. It can be cloned into a project with nothing bound, or deleted.</dd>
+<dt id="unexpected">Unexpected</dt><dd>A folder on disk that the template does not expect. A kind of inconsistency the check reports.</dd>
+</dl>
+        <div class="docs-next"><a href="data.html">← Where your data lives</a><a href="troubleshooting.html">When something goes wrong →</a></div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Barnark · © Roger Barnfather</span>
+      <nav aria-label="Footer">
+        <a href="../index.html">Introduction</a>
+        <a href="../philosophy.html">Philosophy</a>
+        <a href="../quick-start.html">Quick start</a>
+        <a href="index.html" aria-current="page">Documentation</a>
+        <a href="https://rogerbarnfather.github.io/barn-website/">Barn</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

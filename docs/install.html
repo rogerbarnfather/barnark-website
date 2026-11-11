@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Installation · Barnark</title>
+  <meta name="description" content="How to install Barnark with Composer, for one project or for every project, and what it adds to a project.">
+  <link rel="icon" href="../assets/barnark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/base/base.css">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-brand="ark">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="wordmark" href="../index.html"><svg class="mark tool-mark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 14.5h20l-3.2 5.5H5.2zM6.5 13V9.5L12 5.5l5.5 4V13z"/></svg>Barnark</a>
+      <nav aria-label="Barnark">
+        <ul class="nav">
+          <li><a href="../philosophy.html">Philosophy</a></li>
+          <li><a href="../quick-start.html">Quick start</a></li>
+          <li><a href="index.html" aria-current="page">Documentation</a></li>
+          <li><a href="https://rogerbarnfather.github.io/barn-website/">Barn</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="docs wrap wide">
+      <nav class="docs-nav" aria-label="Documentation"><h2>Start</h2><ul><li><a href="index.html">Overview</a></li><li><a href="templates.html">Templates, bound and unbound</a></li></ul><h2>Tasks</h2><ul><li><a href="choose.html">Choose and clone an architecture</a></li><li><a href="grow.html">Add folders to your template</a></li><li><a href="check.html">Check the project</a></li><li><a href="yours.html">Keep templates of your own</a></li><li><a href="history.html">Revisions and history</a></li></ul><h2>Tools</h2><ul><li><a href="gui.html">The browser app</a></li><li><a href="cli.html">Command reference</a></li><li><a href="php.html">From PHP</a></li><li><a href="install.html" aria-current="page">Installation</a></li><li><a href="data.html">Where your data lives</a></li></ul><h2>Reference</h2><ul><li><a href="glossary.html">Glossary</a></li><li><a href="troubleshooting.html">When something goes wrong</a></li></ul></nav>
+      <article class="docs-article">
+        <h1>Installation</h1>
+        <p class="lede">Composer, for one project or for all of them.</p>
+<h2 id="requirements">Requirements <a class="anchor" href="#requirements" aria-label="Link to this section">#</a></h2>
+<ul><li>PHP 8.5 or later.</li><li>Composer.</li><li>Optionally the <code>ds</code> PHP extension, which is used when present. The <code>php-ds/php-ds</code> package comes in as a dependency and does the same job, so it is not needed.</li></ul>
+<h2 id="per-project">For one project <a class="anchor" href="#per-project" aria-label="Link to this section">#</a></h2>
+<p>This is the recommended way. Barnark is a development tool, so <code>--dev</code> is the right place:</p>
+<pre><code><span class="p">$ </span>composer require --dev rmb32/barnark-cli rmb32/barnark-gui
+<span class="p">$ </span>vendor/bin/barnark init
+<span class="p">$ </span>vendor/bin/barnark template:list</code></pre>
+<p><a href="https://packagist.org/packages/rmb32/barnark-cli">barnark-cli</a> brings in the library, <a href="https://packagist.org/packages/rmb32/barnark">barnark</a>, and what it
+needs with it. <a href="https://packagist.org/packages/rmb32/barnark-gui">barnark-gui</a> adds the <code>gui</code> command,
+and can be left out where only the command line is needed.</p>
+<h2 id="global">For every project <a class="anchor" href="#global" aria-label="Link to this section">#</a></h2>
+<pre><code><span class="p">$ </span>composer global require rmb32/barnark-cli</code></pre>
+<p>Then make sure Composer’s global <code>bin</code> folder is on your shell’s <code>PATH</code>. If it isn’t, add this to your <code>~/.zshrc</code> or <code>~/.bashrc</code>:</p>
+<pre><code><span class="p">$ </span>export PATH="$HOME/.composer/vendor/bin:$PATH"</code></pre>
+<p>Check it:</p>
+<pre><code><span class="p">$ </span>barnark --version</code></pre>
+<p>A global install gives you <code>barnark</code> without the <code>vendor/bin/</code>. Everything else in this documentation works the same.</p>
+<h2 id="adds">What Barnark adds to your project <a class="anchor" href="#adds" aria-label="Link to this section">#</a></h2>
+<p>Barnark adds no runtime dependency to your project. It keeps its records in <code>.barn/barnark/</code>, and the folders you
+clone and add are yours. <a href="data.html">Where your data lives</a> lists the files.</p>
+        <div class="docs-next"><a href="php.html">← From PHP</a><a href="data.html">Where your data lives →</a></div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Barnark · © Roger Barnfather</span>
+      <nav aria-label="Footer">
+        <a href="../index.html">Introduction</a>
+        <a href="../philosophy.html">Philosophy</a>
+        <a href="../quick-start.html">Quick start</a>
+        <a href="index.html" aria-current="page">Documentation</a>
+        <a href="https://rogerbarnfather.github.io/barn-website/">Barn</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

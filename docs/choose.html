@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Choose and clone an architecture · Barnark</title>
+  <meta name="description" content="The five architecture templates Barnark ships, what each is for and what folders each makes, and how to clone one into a project.">
+  <link rel="icon" href="../assets/barnark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/base/base.css">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-brand="ark">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="wordmark" href="../index.html"><svg class="mark tool-mark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 14.5h20l-3.2 5.5H5.2zM6.5 13V9.5L12 5.5l5.5 4V13z"/></svg>Barnark</a>
+      <nav aria-label="Barnark">
+        <ul class="nav">
+          <li><a href="../philosophy.html">Philosophy</a></li>
+          <li><a href="../quick-start.html">Quick start</a></li>
+          <li><a href="index.html" aria-current="page">Documentation</a></li>
+          <li><a href="https://rogerbarnfather.github.io/barn-website/">Barn</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="docs wrap wide">
+      <nav class="docs-nav" aria-label="Documentation"><h2>Start</h2><ul><li><a href="index.html">Overview</a></li><li><a href="templates.html">Templates, bound and unbound</a></li></ul><h2>Tasks</h2><ul><li><a href="choose.html" aria-current="page">Choose and clone an architecture</a></li><li><a href="grow.html">Add folders to your template</a></li><li><a href="check.html">Check the project</a></li><li><a href="yours.html">Keep templates of your own</a></li><li><a href="history.html">Revisions and history</a></li></ul><h2>Tools</h2><ul><li><a href="gui.html">The browser app</a></li><li><a href="cli.html">Command reference</a></li><li><a href="php.html">From PHP</a></li><li><a href="install.html">Installation</a></li><li><a href="data.html">Where your data lives</a></li></ul><h2>Reference</h2><ul><li><a href="glossary.html">Glossary</a></li><li><a href="troubleshooting.html">When something goes wrong</a></li></ul></nav>
+      <article class="docs-article">
+        <h1>Choose and clone an architecture</h1>
+        <p class="lede">Five shipped templates, and how to clone one.</p>
+<p>Barnark has no favourite. The description of each shipped template says where it suits, and the choice is yours.
+<code>template:list</code> lists them:</p>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:list
+Barn: …/hotel
+ ---------------------------- ------------
+  Name                         What it is
+ ---------------------------- ------------
+  Domain Driven Design         Shipped
+  Feature Based Architecture   Shipped
+  Model View Controller        Shipped
+  Library                      Shipped
+  Package App                  Shipped</code></pre>
+<div class="table-wrap"><table><thead><tr><th scope="col">Template</th><th scope="col">What it is</th><th scope="col">Suits</th></tr></thead><tbody><tr><td><strong>Domain Driven Design</strong></td><td>Code organised around the business: bounded contexts, each with its own domain model, an application layer of commands and queries, and infrastructure, over a shared kernel with transports at the edge.</td><td>A long-lived application with rich business rules and several distinct parts of the business.</td></tr><tr><td><strong>Feature Based Architecture</strong></td><td>One self-contained folder per feature, holding its own entities, values, exceptions, repositories and controllers.</td><td>A small or medium application whose features change independently, where full layering would be overhead.</td></tr><tr><td><strong>Model View Controller</strong></td><td>The classic three-way split: controllers take requests, models hold data and rules, views present them.</td><td>A conventional web application, especially one built on an MVC framework.</td></tr><tr><td><strong>Library</strong></td><td>A small public <code>Api</code> over hidden <code>Internal</code> code, split into features and shared parts.</td><td>A reusable package whose users should depend only on a stable surface.</td></tr><tr><td><strong>Package App</strong></td><td>A whole application packaged behind a public <code>Api</code>, with bounded contexts, features and a kernel inside.</td><td>An application that other code installs and drives as a dependency.</td></tr></tbody></table></div>
+<h2 id="dry-run">See what a clone would make <a class="anchor" href="#dry-run" aria-label="Link to this section">#</a></h2>
+<p><code>--dry-run</code> checks the template, the name and the target, and prints the folders it would make without writing
+anything. Each of these was run in a barn with nothing bound.</p>
+<h3 id="mvc">Model View Controller <a class="anchor" href="#mvc" aria-label="Link to this section">#</a></h3>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "Model View Controller" Pricing ./app --dry-run
+Barn: …/hotel
+
+Cloning 'Pricing', a copy of 'Model View Controller', into ./app
+================================================================
+
+  ./app
+  ./app/Controller
+  ./app/Model
+  ./app/View
+
+ ! [NOTE] Dry run — nothing was written.</code></pre>
+<h3 id="library">Library <a class="anchor" href="#library" aria-label="Link to this section">#</a></h3>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone Library Pricing ./lib --dry-run
+Barn: …/hotel
+
+Cloning 'Pricing', a copy of 'Library', into ./lib
+==================================================
+
+  ./lib
+  ./lib/Api
+  ./lib/Api/Contract
+  ./lib/Api/Exception
+  ./lib/Api/Factory
+  ./lib/Api/ValueObject
+  ./lib/Internal
+  ./lib/Internal/Feature
+  ./lib/Internal/Shared
+  ./lib/Internal/Shared/Exception
+  ./lib/Internal/Shared/ResultObject
+  ./lib/Internal/Shared/Service
+  ./lib/Internal/Shared/ValueObject
+
+ ! [NOTE] Dry run — nothing was written.</code></pre>
+<h3 id="feature-based">Feature Based Architecture <a class="anchor" href="#feature-based" aria-label="Link to this section">#</a></h3>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "Feature Based Architecture" Pricing ./app --dry-run
+Barn: …/hotel
+
+Cloning 'Pricing', a copy of 'Feature Based Architecture', into ./app
+=====================================================================
+
+ ! [NOTE] This template has no fixed folders and no members, so only the
+ !        directory itself is made. Folders for its slots appear once
+ !        something fills them.
+
+  ./app
+
+ ! [NOTE] Dry run — nothing was written.</code></pre>
+<p>Feature Based Architecture is built entirely from members, so a clone makes only the folder. Its features arrive as you add
+them: <a href="grow.html">Add folders to your template</a> shows how.</p>
+<h3 id="ddd">Domain Driven Design <a class="anchor" href="#ddd" aria-label="Link to this section">#</a></h3>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "Domain Driven Design" Hotel ./src --dry-run
+Barn: …/hotel
+
+Cloning 'Hotel', a copy of 'Domain Driven Design', into ./src
+=============================================================
+
+  ./src
+  ./src/Context
+  ./src/Kernel
+  ./src/Kernel/Application
+  ./src/Kernel/Domain
+  ./src/Kernel/Infrastructure
+  ./src/Transport
+  ./src/Transport/Cli
+  ./src/Transport/Cli/V1
+  ./src/Transport/Cli/V1/Bootstrap
+  ./src/Transport/Cli/V1/Command
+  ./src/Transport/Http
+  ./src/Transport/Http/Json
+  ./src/Transport/Http/Json/V1
+  ./src/Transport/Http/Json/V1/EventSubscriber
+  ./src/Transport/Http/Json/V1/Role
+  ./src/Transport/Http/Json/V1/Value
+
+ ! [NOTE] Dry run — nothing was written.</code></pre>
+<p>The <code>Context</code> folder is made empty. Contexts are members, and you add them yourself.</p>
+<h2 id="clone">Clone it <a class="anchor" href="#clone" aria-label="Link to this section">#</a></h2>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "Domain Driven Design" Hotel ./src
+Barn: …/hotel
+
+Cloning 'Hotel', a copy of 'Domain Driven Design', into ./src
+=============================================================
+
+  ./src
+  …
+
+ [OK] Cloned 'Hotel' into ./src.
+
+Bound to the template 'Hotel' in .barn/barnark/tracked-folders.json — check it any time with `barnark template:check`.</code></pre>
+<ul><li>The first argument names a template: a shipped one, or one of your own as <code>template:list</code> shows it.</li><li>The second is the name for the project’s template, your own copy. Nobody calls a project “Domain Driven Design”, so a shipped template’s name is refused.</li><li>The third is the folder to make. It is relative to the barn’s root, and the folder above it must exist.</li></ul>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone Library X ./nope/lib
+Barn: …/hotel
+
+ [ERROR] Folder '/nope' does not exist. Create that one first.</code></pre>
+<p>Each folder made has a <code>.gitkeep</code>, so that git keeps it while it is empty. Barnark creates no other file in your
+folders. The folder is recorded in <code>.barn/barnark/tracked-folders.json</code> and its template is kept in
+<code>.barn/barnark/catalogue/</code>, so a later <code>template:check</code> with no arguments knows what to check.</p>
+<figure><div class="shot"><div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>Barnark · Clone into the project</span></div><img src="../assets/screens/ark-clone.webp" width="2560" height="2120" loading="lazy" alt="The Clone into the project form in the Barnark browser app. It asks for a folder name and a base directory, and lists the five shipped templates with their descriptions. Domain Driven Design is picked, and beside it is a preview of the folders a clone has, with the Context member type shown in angle brackets. A box at the end is for the name of the project’s template."></div><figcaption>In the browser app, Clone into the project asks the same questions and previews the folders.</figcaption></figure>
+<p>Next: <a href="grow.html">add folders to your template</a>.</p>
+        <div class="docs-next"><a href="templates.html">← Templates, bound and unbound</a><a href="grow.html">Add folders to your template →</a></div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Barnark · © Roger Barnfather</span>
+      <nav aria-label="Footer">
+        <a href="../index.html">Introduction</a>
+        <a href="../philosophy.html">Philosophy</a>
+        <a href="../quick-start.html">Quick start</a>
+        <a href="index.html" aria-current="page">Documentation</a>
+        <a href="https://rogerbarnfather.github.io/barn-website/">Barn</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

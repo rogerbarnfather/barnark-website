@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Introduction · Barnark</title>
+  <meta name="description" content="Barnark keeps a catalogue of architecture templates, clones one into your project as a template of your own, makes its folders and checks that the project keeps to it.">
+  <link rel="icon" href="assets/barnark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/base/base.css">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body data-brand="ark">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="wordmark" href="index.html"><svg class="mark tool-mark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 14.5h20l-3.2 5.5H5.2zM6.5 13V9.5L12 5.5l5.5 4V13z"/></svg>Barnark</a>
+      <nav aria-label="Barnark">
+        <ul class="nav">
+          <li><a href="philosophy.html">Philosophy</a></li>
+          <li><a href="quick-start.html">Quick start</a></li>
+          <li><a href="docs/index.html">Documentation</a></li>
+          <li><a href="https://rogerbarnfather.github.io/barn-website/">Barn</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="wrap">
+        <span class="eyebrow">Barnark</span>
+        <h1>Give a new project a shape, and <span class="accent">keep</span> it.</h1>
+        <p class="lede">Barnark keeps a catalogue of architecture templates. Clone one into a template of your own, let Barnark make the folders, and check at any time that nothing has strayed.</p>
+        <div class="actions">
+          <a class="btn" href="quick-start.html">Quick start</a>
+          <a class="btn ghost" href="philosophy.html">Why it works this way</a>
+        </div>
+        <aside class="callout note maturity">
+          <p><strong>Note.</strong> Barnark is early software (version 0.x) and not ready for real projects yet. The minor version is the one that breaks.</p>
+        </aside>
+      </div>
+      <div class="wrap wide hero-shot">
+        <figure class="shot">
+          <div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>Barnark · Browse</span></div>
+          <img src="assets/screens/ark-browse.webp" width="2560" height="1720" alt="The Barnark browser app for a hotel project. The project’s one folder, src, follows Hotel, its own copy of Domain Driven Design. Its tree is open: the Context folder holds FrontDesk, Property and Reservation, and Reservation’s Domain holds a Booking aggregate. Dashed buttons offer Create New Aggregate and Create New Context where the template allows them.">
+        </figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="feature" id="templates">
+          <div>
+            <span class="kicker">Start from a template</span>
+            <h2>A shape, not a blank folder.</h2>
+            <p>Barnark ships five: <strong>Domain Driven Design</strong>, <strong>Feature Based Architecture</strong>, <strong>Model View Controller</strong>, <strong>Library</strong> and <strong>Package App</strong>. Each says what folders there are and what each is for, and where it suits.</p>
+            <p>Cloning one makes the folders at once. A template says only what folders there are, never what goes in them, so it fits any language.</p>
+          </div>
+          <div class="panel" role="figure" aria-label="The folders Model View Controller makes">
+            <span class="stamp">Model View Controller</span>
+<pre class="tree"><span class="d">app/</span>
+├── Controller/
+├── Model/
+└── View/</pre>
+            <p class="terms-note">The folders a clone makes. Libraries and layered applications make more.</p>
+          </div>
+        </div>
+
+        <div class="feature flip" id="copy">
+          <div>
+            <span class="kicker">Yours, not borrowed</span>
+            <h2>A copy, so nothing can change under you.</h2>
+            <p>Clone Domain Driven Design as <em>Hotel</em> and Hotel is the project’s own, with nothing tying it to the original. If a later Barnark changes the shipped template, your project doesn’t notice.</p>
+            <p>Edit your template as you like, or leave it as it is. Whatever you build is yours to keep.</p>
+          </div>
+          <div class="panel" role="figure" aria-label="Templates in a project">
+            <ul class="examples">
+              <li><b>Hotel</b><span class="state">bound to /src</span></li>
+              <li><b>Domain Driven Design</b><span class="state">shipped, read-only</span></li>
+              <li><b>Library</b><span class="state">shipped, read-only</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="feature" id="together">
+          <div>
+            <span class="kicker">One change, two places</span>
+            <h2>The template and the folders move together.</h2>
+            <p>Add a context and the template records it as a new revision while the folder, with everything a context holds, appears on disk. Deleting a member is recorded as a revision too.</p>
+            <p>Every revision is kept with a reason, so the history of the architecture reads like the history of any decision.</p>
+          </div>
+          <div class="panel" role="figure" aria-label="Adding a context">
+<pre class="tree"><span class="d">$ </span>barnark template:new Context Reservation src/Context
+
+<span class="d">src/Context/</span>
+└── <span class="m">Reservation/</span>
+    ├── Application/
+    ├── Domain/
+    ├── Infrastructure/
+    └── PublicApi/</pre>
+            <p class="terms-note">The template now reads “Added Context/Reservation.”</p>
+          </div>
+        </div>
+
+        <div class="feature stacked" id="check">
+          <div>
+            <div class="copy-head">
+              <span class="kicker">Checked, not claimed</span>
+              <h2>Either it conforms or it doesn’t.</h2>
+            </div>
+            <div>
+              <p>The check compares the project’s folders with its template and lists what is <strong>missing</strong> and what is <strong>unexpected</strong>. For anything unexpected you decide: remove it, or take it into the template and say what it is for.</p>
+              <p>Nobody declares a project well architected. The check says.</p>
+            </div>
+          </div>
+          <figure>
+            <div class="shot">
+              <div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>Barnark · Check</span></div>
+              <img src="assets/screens/ark-check-unexpected.webp" width="2560" height="1240" loading="lazy" alt="The Check tab for the hotel project. It says one inconsistency was found: the folder /src/Scratch is not part of Hotel, with a button to add it to the template.">
+            </div>
+            <figcaption>A folder made by hand, with no place in the template, and the button to take it in.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="ways-in">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Where next</span>
+          <h2>Three ways in.</h2>
+        </div>
+        <div class="grid three ways">
+          <a class="card" href="quick-start.html"><h3>Quick start</h3><p>Install Barnark, clone a template, add a context and run a check.</p><span class="more">Start here</span></a>
+          <a class="card" href="philosophy.html"><h3>Philosophy</h3><p>Why a template is copied, never referred to, and why conformance is derived.</p><span class="more">Read why</span></a>
+          <a class="card" href="docs/index.html"><h3>Documentation</h3><p>Templates, the browser app, the command line and the glossary, task by task.</p><span class="more">Browse the documentation</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <p class="in-barn">Used in Barn: in a <a href="https://rogerbarnfather.github.io/barn-website/barn.html">barn</a>, Barnark is the Ark tab. It works on its own too.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Barnark · © Roger Barnfather</span>
+      <nav aria-label="Footer">
+        <a href="index.html" aria-current="page">Introduction</a>
+        <a href="philosophy.html">Philosophy</a>
+        <a href="quick-start.html">Quick start</a>
+        <a href="docs/index.html">Documentation</a>
+        <a href="https://rogerbarnfather.github.io/barn-website/">Barn</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

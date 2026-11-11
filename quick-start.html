@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quick start · Barnark</title>
+  <meta name="description" content="Install Barnark, clone an architecture template into a project, add folders to it and check that the project keeps to it.">
+  <link rel="icon" href="assets/barnark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/base/base.css">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body data-brand="ark">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="wordmark" href="index.html"><svg class="mark tool-mark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 14.5h20l-3.2 5.5H5.2zM6.5 13V9.5L12 5.5l5.5 4V13z"/></svg>Barnark</a>
+      <nav aria-label="Barnark">
+        <ul class="nav">
+          <li><a href="philosophy.html">Philosophy</a></li>
+          <li><a href="quick-start.html" aria-current="page">Quick start</a></li>
+          <li><a href="docs/index.html">Documentation</a></li>
+          <li><a href="https://rogerbarnfather.github.io/barn-website/">Barn</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section">
+      <div class="wrap prose">
+        <h1>Quick start</h1>
+        <p class="lede">From an empty project to a checked architecture.</p>
+<p>You need PHP 8.5 or later and Composer. Every command on this page was run in a new folder, with a
+hotel as the example, and the output shown is what it printed. It takes about ten minutes.</p>
+<h2 id="install">Install <a class="anchor" href="#install" aria-label="Link to this section">#</a></h2>
+<p>Barnark is a few Composer packages. <a href="https://packagist.org/packages/rmb32/barnark-cli">barnark-cli</a>
+provides the <code>vendor/bin/barnark</code> command and brings the library, <a href="https://packagist.org/packages/rmb32/barnark">barnark</a>,
+with it. <a href="https://packagist.org/packages/rmb32/barnark-gui">barnark-gui</a> adds the browser app. From your project’s root:</p>
+<pre><code><span class="p">$ </span>composer require --dev rmb32/barnark-cli rmb32/barnark-gui</code></pre>
+<h2 id="make-a-barn">Make a barn <a class="anchor" href="#make-a-barn" aria-label="Link to this section">#</a></h2>
+<p>Barnark keeps its records in a folder called <code>.barn/</code> at the root of the project. <code>init</code> makes it.</p>
+<pre><code><span class="p">$ </span>vendor/bin/barnark init
+Made a barn: …/hotel
+Barnark keeps its records in: …/hotel/.barn/barnark</code></pre>
+<p>Commit <code>.barn/</code> with your code. Barnark finds it from any folder inside the project, and refuses to work outside one.</p>
+<h2 id="see-the-templates">See the templates <a class="anchor" href="#see-the-templates" aria-label="Link to this section">#</a></h2>
+<p>Barnark ships a catalogue of architecture <a href="docs/glossary.html#template">templates</a>. They are read-only.</p>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:list
+Barn: …/hotel
+ ---------------------------- ------------
+  Name                         What it is
+ ---------------------------- ------------
+  Domain Driven Design         Shipped
+  Feature Based Architecture   Shipped
+  Model View Controller        Shipped
+  Library                      Shipped
+  Package App                  Shipped</code></pre>
+<h2 id="clone">Clone one into your project <a class="anchor" href="#clone" aria-label="Link to this section">#</a></h2>
+<p>Cloning copies a template under a name you give it, then makes a folder shaped by it. The copy is yours:
+nothing ties it to the template it came from. <code>--dry-run</code> shows the folders without making any.</p>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "Domain Driven Design" Hotel ./src --dry-run
+Barn: …/hotel
+
+Cloning 'Hotel', a copy of 'Domain Driven Design', into ./src
+=============================================================
+
+  ./src
+  ./src/Context
+  ./src/Kernel
+  ./src/Kernel/Application
+  ./src/Kernel/Domain
+  ./src/Kernel/Infrastructure
+  ./src/Transport
+  …</code></pre>
+<p>Run it without <code>--dry-run</code> to make them:</p>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "Domain Driven Design" Hotel ./src
+Barn: …/hotel
+
+Cloning 'Hotel', a copy of 'Domain Driven Design', into ./src
+=============================================================
+
+  ./src
+  …
+
+ [OK] Cloned 'Hotel' into ./src.
+
+Bound to the template 'Hotel' in .barn/barnark/tracked-folders.json — check it any time with `barnark template:check`.</code></pre>
+<p>A project has one template, and this is it: <em>Hotel</em>, bound to <code>src</code>. Each folder holds a
+<code>.gitkeep</code> so that git keeps it while it is empty. Barnark creates nothing else in your folders.</p>
+<h2 id="check">Check the folder <a class="anchor" href="#check" aria-label="Link to this section">#</a></h2>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:check
+Barn: …/hotel
+
+Checking …/hotel/src against 'Hotel'
+====================================
+
+ [OK] Conformant — no inconsistencies found.</code></pre>
+<p>The check compares the folder with its template and reports where they differ. The command exits with status 1 when anything is wrong, so it can run in a build.</p>
+<h2 id="add">Add what the template offers <a class="anchor" href="#add" aria-label="Link to this section">#</a></h2>
+<p>Some folders of a template are <em>collections</em>: a place where you add folders of your own, each shaped
+the same way. In Domain Driven Design, <code>Context</code> is one. Ask a folder what it offers:</p>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:offers src/Context
+Barn: …/hotel
+
+Slots offered in /src/Context by 'Hotel'
+========================================
+
+ --------- --------- -------------------------------------------------
+  Slot      Key       Create it with
+ --------- --------- -------------------------------------------------
+  Context   Context   barnark template:new Context &lt;name&gt; src/Context
+ --------- --------- -------------------------------------------------</code></pre>
+<p>Add a context. Its folders arrive with it, and the template records the new member as a revision:</p>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:new Context Reservation src/Context
+Barn: …/hotel
+
+New Context 'Reservation'
+=========================
+
+  …/hotel/src/Context/Reservation
+  …/hotel/src/Context/Reservation/Application
+  …/hotel/src/Context/Reservation/Application/Command
+  …
+
+ [OK] Created …/hotel/src/Context/Reservation, added to the template as
+      Context.
+
+Check it with `barnark template:check`.</code></pre>
+<p>Add a second context, <em>FrontDesk</em>, the same way. Then ask what a context’s <code>Domain</code> folder offers, and add an aggregate to it:</p>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:offers src/Context/Reservation/Domain
+Barn: …/hotel
+
+Slots offered in /src/Context/Reservation/Domain by 'Hotel'
+===========================================================
+
+ ----------- ----------- ----------------------------------------------------------------------
+  Slot        Key         Create it with
+ ----------- ----------- ----------------------------------------------------------------------
+  Aggregate   Aggregate   barnark template:new Aggregate &lt;name&gt; src/Context/Reservation/Domain
+ ----------- ----------- ----------------------------------------------------------------------</code></pre>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:new Aggregate Booking src/Context/Reservation/Domain
+Barn: …/hotel
+
+New Aggregate 'Booking'
+=======================
+
+  …/hotel/src/Context/Reservation/Domain/Booking
+
+ [OK] Created …/hotel/src/Context/Reservation/Domain/Booking, added to the
+      template as Aggregate.
+
+Check it with `barnark template:check`.</code></pre>
+<h2 id="stray">Let the check find what strays <a class="anchor" href="#stray" aria-label="Link to this section">#</a></h2>
+<p>Make a folder by hand, where the template has no place for it, and check again:</p>
+<pre><code><span class="p">$ </span>mkdir src/Scratch
+<span class="p">$ </span>vendor/bin/barnark template:check
+Barn: …/hotel
+
+Checking …/hotel/src against 'Hotel'
+====================================
+
+Unexpected — on disk, not expected here
+---------------------------------------
+
+  …/hotel/src/Scratch
+    This folder is not part of 'Hotel'.
+
+ [ERROR] 1 inconsistency(ies) found.</code></pre>
+<p>Either remove the folder, or take it into the template by saying what belongs there:</p>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:add-folder src/Scratch "Throwaway experiments."
+Barn: …/hotel
+
+ [OK] Added /src/Scratch to the template.
+
+Check it with `barnark template:check`.</code></pre>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:check
+Barn: …/hotel
+
+Checking …/hotel/src against 'Hotel'
+====================================
+
+ [OK] Conformant — no inconsistencies found.</code></pre>
+<h2 id="open-the-browser-app">Open the browser app <a class="anchor" href="#open-the-browser-app" aria-label="Link to this section">#</a></h2>
+<pre><code><span class="p">$ </span>vendor/bin/barnark gui</code></pre>
+<p>This serves the barn on your own machine and opens it in your browser, on port 8081 or the next free one.
+Stop it with Ctrl-C. The project’s folder is on the left: <em>Browse</em> shows its tree with a button for each thing the
+template lets you add, <em>Check</em> runs the check, and <em>History</em> lists every revision of the template. The
+<a href="docs/gui.html">browser app</a> page covers the rest.</p>
+<h2 id="where-next">Where next <a class="anchor" href="#where-next" aria-label="Link to this section">#</a></h2>
+<ul><li><a href="docs/choose.html">Choose and clone an architecture</a>: what each shipped template is for and what it makes.</li><li><a href="docs/grow.html">Add folders to your template</a>: collections, members and folders of your own.</li><li><a href="philosophy.html">Philosophy</a>: why a template is copied, never referred to, and why conformance is checked, not claimed.</li></ul>
+<p class="in-barn-left">Used in Barn: in a <a href="https://rogerbarnfather.github.io/barn-website/barn.html">barn</a>, Barnark is the Ark tab. <code>barnark init</code> makes any project a barn so Barnark can work on its own.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Barnark · © Roger Barnfather</span>
+      <nav aria-label="Footer">
+        <a href="index.html">Introduction</a>
+        <a href="philosophy.html">Philosophy</a>
+        <a href="quick-start.html" aria-current="page">Quick start</a>
+        <a href="docs/index.html">Documentation</a>
+        <a href="https://rogerbarnfather.github.io/barn-website/">Barn</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
