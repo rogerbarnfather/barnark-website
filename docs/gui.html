@@ -44,7 +44,7 @@ there, the page says so and offers to make one in the folder it was started in. 
 <h2 id="side-panel">The side panel <a class="anchor" href="#side-panel" aria-label="Link to this section">#</a></h2>
 <p>The GUI calls every template a <strong>scaffold</strong>. The side panel has three headings. <strong>Arks</strong> lists the project’s arks by
 name. Choose one and its views slide in under a back arrow carrying its name: <strong>Tree</strong>, <strong>Check</strong>,
-<strong>History</strong> and <strong>Scaffold</strong>, the ark’s own scaffold. <strong>Your scaffolds</strong> holds the scaffolds you have
+<strong>History</strong>, <strong>Scaffold</strong>, the ark’s own scaffold, and <strong>Components</strong>. <strong>Your scaffolds</strong> holds the scaffolds you have
 copied, and <strong>Barnark scaffolds</strong> the shipped ones, which are read-only. An ark’s own scaffold is reached through its ark, never
 listed. Click a Barnark scaffold to see its tree, or one of yours to see its <a href="history.html">History</a>. The panel can be dragged to
 whatever width you like, and a double-click on the divider puts it back.</p>
@@ -73,6 +73,12 @@ give it a meaning and it becomes part of the ark’s scaffold as it is, and the 
 <figure><div class="shot"><div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>Barnark · Check</span></div><img src="../assets/screens/ark-check-unexpected.webp" width="2560" height="1240" loading="lazy" alt="The Check tab reporting that the folder /src/Scratch is not part of Hotel, with an Add to template button."></div></figure>
 <h2 id="history">History <a class="anchor" href="#history" aria-label="Link to this section">#</a></h2>
 <p>The <strong>History</strong> tab lists the ark’s scaffold’s revisions and shows each as a read-only tree. <a href="history.html">Revisions and history</a> has the rest.</p>
+<h2 id="components">Components <a class="anchor" href="#components" aria-label="Link to this section">#</a></h2>
+<p>Every scaffold is built from <a href="glossary.html#component">components</a>, each a folder with a meaning, holding fixed folders, a
+collection of members or nothing. An ark shows them in its <strong>Components</strong> view, and a Barnark scaffold or one of yours behind
+<strong>Components</strong> under its name. They are grouped as <strong>Placed</strong>, in the scaffold’s tree from its root down, and
+<strong>Available</strong>, not placed yet, which shows only when there are some. Choose one to see its meaning, its tags and what it
+holds, with a back arrow to the list. <code>template:components</code> lists the same from the command line.</p>
 <h2 id="tags">Tags <a class="anchor" href="#tags" aria-label="Link to this section">#</a></h2>
 <p>A template can tag its folders, as Domain Driven Design tags its layers <code>Application</code>, <code>Domain</code>,
 <code>Infrastructure</code> and <code>Transport</code>. A folder’s tags show as coloured labels beside its name, in Browse and in a
