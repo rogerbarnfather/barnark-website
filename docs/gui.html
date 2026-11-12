@@ -79,6 +79,14 @@ collection of members or nothing. An ark shows them in its <strong>Components</s
 <strong>Components</strong> under its name. They are grouped as <strong>Placed</strong>, in the scaffold’s tree from its root down, and
 <strong>Available</strong>, not placed yet, which shows only when there are some. Choose one to see its meaning, its tags and what it
 holds, with a back arrow to the list. <code>template:components</code> lists the same from the command line.</p>
+<p>One of your scaffolds, or an ark’s, takes copies. <strong>Copy from…</strong> finds a component in any of your scaffolds or
+Barnark’s, each shown with the scaffold it is in, and <strong>Blank component</strong>, an empty folder you name, is always first.
+The copy comes with everything it holds and is available to place: nothing in the tree uses it yet, so no folder
+changes. A component’s details offer <strong>Copy to…</strong> one of your scaffolds or a new one. A key already in use gets a
+number (<code>Feature2</code>), and a tag the scaffold already declares keeps its own meaning; the notice after a copy says
+which. An available component of one of yours can be <strong>Removed</strong>, with what only it holds. Later changes to the
+original never reach a copy. From the command line: <code>template:copy-component</code> and
+<code>template:remove-component</code>.</p>
 <h2 id="tags">Tags <a class="anchor" href="#tags" aria-label="Link to this section">#</a></h2>
 <p>A template can tag its folders, as Domain Driven Design tags its layers <code>Application</code>, <code>Domain</code>,
 <code>Infrastructure</code> and <code>Transport</code>. A folder’s tags show as coloured labels beside its name, in Browse and in a
