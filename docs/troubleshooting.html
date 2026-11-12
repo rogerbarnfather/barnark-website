@@ -40,30 +40,35 @@
 <h3 id="no-template">No template is bound here <a class="anchor" href="#no-template" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:check
 Barn: …/hotel
 
- [ERROR] No template is bound here. Clone one into the project with `barnark
-         template:clone &lt;template&gt; &lt;name&gt; &lt;directory&gt; --ark=&lt;ark&gt;`, or pass a template and
-         directory to check.</code></pre><p>The project has no ark yet, so there is nothing to check.</p><p><strong>What to do:</strong> clone one with <code>template:clone</code>, or name a shipped template and a directory to check.</p>
+ [ERROR] No template is bound here. Make an ark with `barnark template:clone
+         &lt;your template&gt; &lt;ark&gt; &lt;directory&gt;`, or pass a template and
+         directory to check.</code></pre><p>The project has no ark yet, so there is nothing to check.</p><p><strong>What to do:</strong> make one with <code>template:clone</code> from a template of your own, or name a shipped template and a directory to check.</p>
 <h3 id="unreadable">can’t be read <a class="anchor" href="#unreadable" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:check
 Barn: …/hotel
 
-Checking the ark 'hotel', …/hotel/src, against 'Hotel'
+Checking the ark 'Hotel', …/hotel/src, against 'Hotel'
 ======================================================
 
  [ERROR] Template 'Hotel' can't be read: The revision file
          '…/hotel/.barn/barnark/catalogue/template-history' cannot be used:
          Syntax error.</code></pre><p>A template file was changed outside Barnark.</p><p><strong>What to do:</strong> restore the file from git. Don’t edit the template files by hand.</p>
 <h2 id="cloning">Cloning and copying <a class="anchor" href="#cloning" aria-label="Link to this section">#</a></h2>
-<h3 id="ark-name">The ark needs a name <a class="anchor" href="#ark-name" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:clone Library Pricing ./lib
+<h3 id="shipped">is shipped with Barnark <a class="anchor" href="#shipped" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:clone Library Pricing ./lib
 Barn: …/hotel
 
- [ERROR] Name the ark with --ark, for example `--ark=checkout`. An ark's name is
-         required and unique in the barn.</code></pre><p>A clone makes an ark, and an ark’s name is required.</p><p><strong>What to do:</strong> add <code>--ark</code> with a name of your own.</p>
-<h3 id="ark-taken">The project has an ark of that name already <a class="anchor" href="#ark-taken" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:clone Library Pricing ./lib --ark HOTEL
+ [ERROR] 'Library' is shipped with Barnark, and an ark is made only from one of
+         your templates. Copy it first, for example `barnark template:copy
+         "Library" "My Library"`, then make the ark from the copy.</code></pre><p>An ark is made only from a template of your own, so a shipped one stays as it shipped.</p><p><strong>What to do:</strong> run the <code>template:copy</code> it suggests, then <code>template:clone</code> with your copy.</p>
+<h3 id="ark-name">cannot name an ark <a class="anchor" href="#ark-name" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "My Library" "Shop: east" ./lib
 Barn: …/hotel
 
- [ERROR] 'HOTEL' cannot name an ark: the project has an ark called 'hotel'
+ [ERROR] 'Shop: east' cannot name an ark: it has one of / \ : * ? " &lt; &gt; |.</code></pre><p>An ark’s name also names its own template, so it follows a template name’s rules: no leading or trailing dot, and none of <code>/ \ : * ? " &lt; &gt; |</code>.</p><p><strong>What to do:</strong> choose a name without them.</p>
+<h3 id="ark-taken">The project has an ark of that name already <a class="anchor" href="#ark-taken" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "My Library" HOTEL ./lib
+Barn: …/hotel
+
+ [ERROR] 'HOTEL' cannot name an ark: the project has an ark called 'Hotel'
          already.</code></pre><p>An ark’s name is unique in the project, ignoring case.</p><p><strong>What to do:</strong> choose another name. <code>ark:list</code> lists the arks.</p>
-<h3 id="outside">is outside the project <a class="anchor" href="#outside" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:clone Library Pricing ../pricing --ark pricing
+<h3 id="outside">is outside the project <a class="anchor" href="#outside" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "My Library" Pricing ../pricing
 Barn: …/hotel
 
  [ERROR] '../pricing' is outside the project at …/hotel, so it can't be tracked.
@@ -79,12 +84,12 @@ Barn: …/hotel
 
  [ERROR] 'domain driven design' can't name a template: a shipped template is
          called 'Domain Driven Design'.</code></pre><p>A template’s name can’t be one the project already has, or a shipped template’s name, ignoring case.</p><p><strong>What to do:</strong> choose another name.</p>
-<h3 id="no-such-template">There is no template called <a class="anchor" href="#no-such-template" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:clone Nope X ./lib --ark x
+<h3 id="no-such-template">There is no template called <a class="anchor" href="#no-such-template" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:clone Nope X ./lib
 Barn: …/hotel
 
  [ERROR] There is no template called 'Nope'. `barnark template:list` lists
          them.</code></pre><p>The name doesn’t match a shipped template or one of yours.</p><p><strong>What to do:</strong> run <code>template:list</code> and use a name from it, in quotes if it has spaces.</p>
-<h3 id="parent">Folder … does not exist <a class="anchor" href="#parent" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:clone Library X ./nope/lib --ark x
+<h3 id="parent">Folder … does not exist <a class="anchor" href="#parent" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "My Library" X ./nope/lib
 Barn: …/hotel
 
  [ERROR] Folder '/nope' does not exist. Create that one first.</code></pre><p>The folder above the one a clone would make doesn’t exist.</p><p><strong>What to do:</strong> make the folder above it first, or clone into a folder that sits directly in the barn.</p>

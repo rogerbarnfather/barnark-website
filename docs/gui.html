@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>The browser app · Barnark</title>
-  <meta name="description" content="How to start and use the Barnark browser app: cloning, browsing, adding members, the template, the check and history.">
+  <meta name="description" content="How to start and use the Barnark browser app: scaffolds, creating arks, browsing, adding members, the check and history.">
   <link rel="icon" href="../assets/base/barnark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../assets/base/base.css">
   <link rel="stylesheet" href="../assets/site.css">
@@ -32,8 +32,8 @@
       <article class="docs-article">
         <h1>The browser app</h1>
         <p class="lede">Everything Barnark does, in a browser.</p>
-<p>The browser app does everything the command line does: clone a template into the project and make its folder, browse the
-folder’s tree, add what the template offers, run the check and keep templates of your own. It is the easiest way to use Barnark.</p>
+<p>The browser app does everything the command line does: copy a scaffold (the command line says template) into the project,
+create arks from it, browse an ark’s tree, add what its scaffold offers, run the check and keep scaffolds of your own. It is the easiest way to use Barnark.</p>
 <h2 id="start">Start it <a class="anchor" href="#start" aria-label="Link to this section">#</a></h2>
 <pre><code><span class="p">$ </span>vendor/bin/barnark gui                       <span class="c"># http://localhost:8081, opens your browser</span>
 <span class="p">$ </span>vendor/bin/barnark gui --port=9000 --no-open</code></pre>
@@ -42,37 +42,37 @@ folder. It prints the barn’s root and picks the next free port if the port you
 there, the page says so and offers to make one in the folder it was started in. That adds only the <code>.barn/</code> folder.</p>
 <div class="table-wrap"><table><thead><tr><th scope="col">Option</th><th scope="col">What it does</th></tr></thead><tbody><tr><td><code>-p</code>, <code>--port=PORT</code></td><td>The port to try first. The default is 8081.</td></tr><tr><td><code>--host=HOST</code></td><td>The host to listen on. The default is <code>localhost</code>.</td></tr><tr><td><code>--no-open</code></td><td>Don’t open a browser window.</td></tr><tr><td><code>--dry-run</code></td><td>Print what would be started without starting it.</td></tr></tbody></table></div>
 <h2 id="side-panel">The side panel <a class="anchor" href="#side-panel" aria-label="Link to this section">#</a></h2>
-<p>The side panel has two headings. <strong>Arks</strong> lists the project’s arks by name, each with a check badge. Choose one and its
-views slide in under a back arrow carrying its name: <strong>Tree</strong>, <strong>Check</strong>, <strong>History</strong> and <strong>Template</strong>.
-<strong>Templates</strong> holds your own templates first, then the shipped ones, marked <em>Shipped</em>, which are read-only. Click a
-shipped template to see its tree, or one of your own to see its <a href="history.html">History</a>. The panel can be dragged to
+<p>The GUI calls every template a <strong>scaffold</strong>. The side panel has three headings. <strong>Arks</strong> lists the project’s arks by
+name. Choose one and its views slide in under a back arrow carrying its name: <strong>Tree</strong>, <strong>Check</strong>,
+<strong>History</strong> and <strong>Scaffold</strong>, the ark’s own scaffold. <strong>Your scaffolds</strong> holds the scaffolds you have
+copied, and <strong>Barnark scaffolds</strong> the shipped ones, which are read-only. An ark’s own scaffold is reached through its ark, never
+listed. Click a Barnark scaffold to see its tree, or one of yours to see its <a href="history.html">History</a>. The panel can be dragged to
 whatever width you like, and a double-click on the divider puts it back.</p>
-<h2 id="clone">Clone into the project <a class="anchor" href="#clone" aria-label="Link to this section">#</a></h2>
-<p><strong>New</strong> beside <em>Arks</em> opens <strong>Clone into the project</strong>, and is always on. You name the ark, the
-folder and its base directory, pick a template, and name the ark’s template, which is a copy of the one you picked. Beside the
-choice is the shape a folder following it takes: the folders every clone has, <em>‹named›/</em> placeholders for the member types you add
-to yourself, and the members a template of your own already has. Point at any part to see what it is for. A project can have many arks, so
-cloning stays on.</p>
-<figure><div class="shot"><div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>Barnark · Clone into the project</span></div><img src="../assets/screens/ark-clone.webp" width="2560" height="2120" loading="lazy" alt="The Clone into the project form: folder name, base directory, the five shipped templates with Domain Driven Design picked, a preview of the folders a clone has, and a field for the project’s template name."></div></figure>
+<h2 id="clone">Create an ark <a class="anchor" href="#clone" aria-label="Link to this section">#</a></h2>
+<p>An ark is made only from one of Your scaffolds. Choose a Barnark scaffold, such as <em>Domain Driven Design</em> or <em>Blank
+project</em> (one empty folder), and <strong>Copy to Your scaffolds</strong> under a name such as <em>My DDD</em>. Then, on your copy,
+<strong>Create ark</strong> asks for the ark’s name, its folder and the folder’s base directory, and says what it will do: “Creates the
+ark Shop from a copy of My DDD. Later changes to My DDD won’t reach it.” The ark’s own scaffold takes the ark’s name. A project can have
+many arks. Deleting one of Your scaffolds asks first, and says that copies made from it, arks included, keep working.</p>
 <h2 id="browse">Browse <a class="anchor" href="#browse" aria-label="Link to this section">#</a></h2>
-<p>The tree shows a folder’s folders, never its files. Wherever the template has a member type for a folder you name, it offers a
+<p>The tree shows a folder’s folders, never its files. Wherever the scaffold has a member type for a folder you name, it offers a
 button for it, on the directory’s own row and inside the directory once it is open. Click, for example, <strong>Create New Context</strong>,
-give the new folder a name, and the template’s whole structure for it is made underneath.</p>
+give the new folder a name, and the scaffold’s whole structure for it is made underneath.</p>
 <p>A member is part of the template, so adding or deleting one makes a new revision, with a reason Barnark writes, such as “Added
 Context/Billing.” The delete dialog says so before a member goes.</p>
 <figure><div class="shot"><div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>Barnark · Browse</span></div><img src="../assets/screens/ark-browse.webp" width="2560" height="1720" loading="lazy" alt="The Browse tab: the Context folder holds FrontDesk, Property and Reservation, and Reservation’s Domain holds a Booking aggregate. Buttons offer Create New Aggregate and Create New Context. Folders carry coloured tags such as Application, Domain and Infrastructure."></div><figcaption>Browse, with a button for each thing the template lets you add.</figcaption></figure>
-<h2 id="template">Template <a class="anchor" href="#template" aria-label="Link to this section">#</a></h2>
-<p>The <strong>Template</strong> tab shows the ark’s template’s current tree with what each folder means. A folder of the
-template’s own offers <strong>+</strong>, to add a folder of yours inside it with a name and a meaning, and <strong>Meaning</strong>, to
+<h2 id="template">Scaffold <a class="anchor" href="#template" aria-label="Link to this section">#</a></h2>
+<p>The <strong>Scaffold</strong> tab shows the ark’s scaffold’s current tree with what each folder means. A folder of the
+scaffold’s own offers <strong>+</strong>, to add a folder of yours inside it with a name and a meaning, and <strong>Meaning</strong>, to
 change what it means. <strong>Add a folder</strong> and <strong>Change what /src means</strong> do the same for the ark’s folder itself.
 Each is a new revision. A collection holds only members, so it offers no <strong>+</strong>, and nothing inside a member offers anything.</p>
 <figure><div class="shot"><div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>Barnark · Template</span></div><img src="../assets/screens/ark-template.webp" width="2560" height="2000" loading="lazy" alt="The Template tab for Hotel, showing its tree with each folder’s meaning and its kind: fixed folder, member type or member. Buttons at the top read Add a folder and Change what /src means."></div></figure>
 <h2 id="check">Check <a class="anchor" href="#check" aria-label="Link to this section">#</a></h2>
-<p>The <strong>Check</strong> tab runs the <a href="check.html">check</a>. An unexpected folder offers <strong>Add to template</strong>:
-give it a meaning and it becomes part of the template as it is, and the check runs again.</p>
+<p>The <strong>Check</strong> tab runs the <a href="check.html">check</a>. An unexpected folder offers <strong>Add to scaffold</strong>:
+give it a meaning and it becomes part of the ark’s scaffold as it is, and the check runs again.</p>
 <figure><div class="shot"><div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>Barnark · Check</span></div><img src="../assets/screens/ark-check-unexpected.webp" width="2560" height="1240" loading="lazy" alt="The Check tab reporting that the folder /src/Scratch is not part of Hotel, with an Add to template button."></div></figure>
 <h2 id="history">History <a class="anchor" href="#history" aria-label="Link to this section">#</a></h2>
-<p>The <strong>History</strong> tab lists the template’s revisions and shows each as a read-only tree. <a href="history.html">Revisions and history</a> has the rest.</p>
+<p>The <strong>History</strong> tab lists the ark’s scaffold’s revisions and shows each as a read-only tree. <a href="history.html">Revisions and history</a> has the rest.</p>
 <h2 id="tags">Tags <a class="anchor" href="#tags" aria-label="Link to this section">#</a></h2>
 <p>A template can tag its folders, as Domain Driven Design tags its layers <code>Application</code>, <code>Domain</code>,
 <code>Infrastructure</code> and <code>Transport</code>. A folder’s tags show as coloured labels beside its name, in Browse and in a

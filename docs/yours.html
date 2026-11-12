@@ -57,21 +57,21 @@ Barn: …/hotel
 
  [OK] Copied 'Hotel' into 'Reservations'.</code></pre>
 <p>Its first revision is the copy. Changing one never changes the other.</p>
-<h2 id="clone">Clone one of yours <a class="anchor" href="#clone" aria-label="Link to this section">#</a></h2>
-<p>An unbound template of yours can be cloned into a project with nothing bound, like a shipped one, its members’ folders
-included. The clone is a further copy under the name you give it.</p>
-<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "Our Library" Pricing ./lib --ark pricing
+<h2 id="clone">Make an ark from one of yours <a class="anchor" href="#clone" aria-label="Link to this section">#</a></h2>
+<p>An unbound template of yours makes an ark, its members’ folders included. The ark’s own template is a further copy,
+named after the ark.</p>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "Our Library" Pricing ./lib
 Barn: …/hotel
 
-Cloning 'Pricing', a copy of 'Our Library', into ./lib
-======================================================
+Making the ark 'Pricing' from a copy of 'Our Library' in ./lib
+==============================================================
 
   ./lib
   …
 
- [OK] Cloned 'Pricing' into ./lib.
+ [OK] Made the ark 'Pricing' in ./lib.
 
-Bound to the template 'Pricing' in .barn/barnark/tracked-folders.json — check it any time with `barnark template:check`.</code></pre>
+Bound to its own template 'Pricing' in .barn/barnark/tracked-folders.json — check it any time with `barnark template:check`.</code></pre>
 <h2 id="delete">Delete <a class="anchor" href="#delete" aria-label="Link to this section">#</a></h2>
 <p><code>template:delete</code> removes one of your own templates with every revision. Only git brings it back, so it asks first.
 With <code>-n</code> (<code>--no-interaction</code>) it goes ahead without asking. The project’s own template and the shipped ones can’t

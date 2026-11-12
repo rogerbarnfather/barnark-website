@@ -48,17 +48,17 @@ Barn: …/hotel
          called 'Domain Driven Design'.</code></pre>
 <h2 id="bound-and-unbound">Bound and unbound <a class="anchor" href="#bound-and-unbound" aria-label="Link to this section">#</a></h2>
 <p>A project has <strong>arks</strong>, as many as it needs. An ark is a named folder and the template that follows it. That
-template is the <strong>bound</strong> template, made together with its folder by a clone. Each ark has a name, unique in the
+template is the <strong>bound</strong> template, made together with its folder by <code>template:clone</code> from a template of your own: a copy named after the ark. Each ark has a name, unique in the
 project, and its folder can be anywhere on your computer, in the project or beside it. Barnark records each ark and its folder in
 <code>.barn/barnark/tracked-folders.json</code>, and keeps each of the project’s templates, with its revisions, in
 <code>.barn/barnark/catalogue/</code>. The ark’s folder holds a small <code>.barn-ark.json</code> that points back to the project.</p>
 <p>The project’s other templates are <strong>unbound</strong>: ones you made by copying. An unbound template isn’t attached to any folder.
-It can be cloned into the project as another ark, like a shipped template, or deleted. An ark’s name can’t be one the project already has,
+It can make another ark, or be deleted. A shipped template makes no ark until you copy it. An ark’s name can’t be one the project already has,
 ignoring case.</p>
-<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone Library Pricing ./lib --ark HOTEL
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "My Library" HOTEL ./lib
 Barn: …/hotel
 
- [ERROR] 'HOTEL' cannot name an ark: the project has an ark called 'hotel'
+ [ERROR] 'HOTEL' cannot name an ark: the project has an ark called 'Hotel'
          already.</code></pre>
 <aside class="callout note"><p><strong>Note.</strong> Nothing unbinds an ark’s template or removes its folder: ending an ark’s life is not built yet.</p></aside>
 <p>The <a href="yours.html">Keep templates of your own</a> page shows copying, listing and deleting.</p>

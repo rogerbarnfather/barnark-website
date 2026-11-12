@@ -43,17 +43,20 @@ Barn: …/hotel
   Feature Based Architecture   Shipped
   Model View Controller        Shipped
   Library                      Shipped
-  Package App                  Shipped</code></pre>
-<div class="table-wrap"><table><thead><tr><th scope="col">Template</th><th scope="col">What it is</th><th scope="col">Suits</th></tr></thead><tbody><tr><td><strong>Domain Driven Design</strong></td><td>Code organised around the business: bounded contexts, each with its own domain model, an application layer of commands and queries, and infrastructure, over a shared kernel with transports at the edge.</td><td>A long-lived application with rich business rules and several distinct parts of the business.</td></tr><tr><td><strong>Feature Based Architecture</strong></td><td>One self-contained folder per feature, holding its own entities, values, exceptions, repositories and controllers.</td><td>A small or medium application whose features change independently, where full layering would be overhead.</td></tr><tr><td><strong>Model View Controller</strong></td><td>The classic three-way split: controllers take requests, models hold data and rules, views present them.</td><td>A conventional web application, especially one built on an MVC framework.</td></tr><tr><td><strong>Library</strong></td><td>A small public <code>Api</code> over hidden <code>Internal</code> code, split into features and shared parts.</td><td>A reusable package whose users should depend only on a stable surface.</td></tr><tr><td><strong>Package App</strong></td><td>A whole application packaged behind a public <code>Api</code>, with bounded contexts, features and a kernel inside.</td><td>An application that other code installs and drives as a dependency.</td></tr></tbody></table></div>
-<h2 id="dry-run">See what a clone would make <a class="anchor" href="#dry-run" aria-label="Link to this section">#</a></h2>
-<p><code>--dry-run</code> checks the template, the name and the target, and prints the folders it would make without writing
-anything. Each of these was run in a barn with nothing bound.</p>
+  Package App                  Shipped
+  Blank project                Shipped</code></pre>
+<div class="table-wrap"><table><thead><tr><th scope="col">Template</th><th scope="col">What it is</th><th scope="col">Suits</th></tr></thead><tbody><tr><td><strong>Domain Driven Design</strong></td><td>Code organised around the business: bounded contexts, each with its own domain model, an application layer of commands and queries, and infrastructure, over a shared kernel with transports at the edge.</td><td>A long-lived application with rich business rules and several distinct parts of the business.</td></tr><tr><td><strong>Feature Based Architecture</strong></td><td>One self-contained folder per feature, holding its own entities, values, exceptions, repositories and controllers.</td><td>A small or medium application whose features change independently, where full layering would be overhead.</td></tr><tr><td><strong>Model View Controller</strong></td><td>The classic three-way split: controllers take requests, models hold data and rules, views present them.</td><td>A conventional web application, especially one built on an MVC framework.</td></tr><tr><td><strong>Library</strong></td><td>A small public <code>Api</code> over hidden <code>Internal</code> code, split into features and shared parts.</td><td>A reusable package whose users should depend only on a stable surface.</td></tr><tr><td><strong>Package App</strong></td><td>A whole application packaged behind a public <code>Api</code>, with bounded contexts, features and a kernel inside.</td><td>An application that other code installs and drives as a dependency.</td></tr><tr><td><strong>Blank project</strong></td><td>One empty folder, <code>src</code>, and nothing else.</td><td>A project whose shape is still to be decided: add to it as it grows.</td></tr></tbody></table></div>
+<h2 id="dry-run">See what an ark would hold <a class="anchor" href="#dry-run" aria-label="Link to this section">#</a></h2>
+<p>An ark is made only from a template of your own, so copy the shipped one first, for example
+<code>template:copy "Model View Controller" "My Model View Controller"</code>. Then <code>--dry-run</code> checks the template,
+the ark’s name and the target, and prints the folders it would make without writing anything. Each of these was run in a
+barn with nothing bound, after that copy.</p>
 <h3 id="mvc">Model View Controller <a class="anchor" href="#mvc" aria-label="Link to this section">#</a></h3>
-<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "Model View Controller" Pricing ./app --ark pricing --dry-run
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "My Model View Controller" Pricing ./app --dry-run
 Barn: …/hotel
 
-Cloning 'Pricing', a copy of 'Model View Controller', into ./app
-================================================================
+Making the ark 'Pricing' from a copy of 'My Model View Controller' in ./app
+===========================================================================
 
   ./app
   ./app/Controller
@@ -62,11 +65,11 @@ Cloning 'Pricing', a copy of 'Model View Controller', into ./app
 
  ! [NOTE] Dry run — nothing was written.</code></pre>
 <h3 id="library">Library <a class="anchor" href="#library" aria-label="Link to this section">#</a></h3>
-<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone Library Pricing ./lib --ark pricing --dry-run
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "My Library" Pricing ./lib --dry-run
 Barn: …/hotel
 
-Cloning 'Pricing', a copy of 'Library', into ./lib
-==================================================
+Making the ark 'Pricing' from a copy of 'My Library' in ./lib
+=============================================================
 
   ./lib
   ./lib/Api
@@ -84,11 +87,11 @@ Cloning 'Pricing', a copy of 'Library', into ./lib
 
  ! [NOTE] Dry run — nothing was written.</code></pre>
 <h3 id="feature-based">Feature Based Architecture <a class="anchor" href="#feature-based" aria-label="Link to this section">#</a></h3>
-<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "Feature Based Architecture" Pricing ./app --ark pricing --dry-run
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "My Feature Based Architecture" Pricing ./app --dry-run
 Barn: …/hotel
 
-Cloning 'Pricing', a copy of 'Feature Based Architecture', into ./app
-=====================================================================
+Making the ark 'Pricing' from a copy of 'My Feature Based Architecture' in ./app
+================================================================================
 
  ! [NOTE] This template has no fixed folders and no members, so only the
  !        directory itself is made. Folders for its slots appear once
@@ -97,14 +100,14 @@ Cloning 'Pricing', a copy of 'Feature Based Architecture', into ./app
   ./app
 
  ! [NOTE] Dry run — nothing was written.</code></pre>
-<p>Feature Based Architecture is built entirely from members, so a clone makes only the folder. Its features arrive as you add
+<p>Feature Based Architecture is built entirely from members, so an ark made from it has only the folder. Its features arrive as you add
 them: <a href="grow.html">Add folders to your template</a> shows how.</p>
 <h3 id="ddd">Domain Driven Design <a class="anchor" href="#ddd" aria-label="Link to this section">#</a></h3>
-<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "Domain Driven Design" Hotel ./src --ark hotel --dry-run
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "My Domain Driven Design" Hotel ./src --dry-run
 Barn: …/hotel
 
-Cloning 'Hotel', a copy of 'Domain Driven Design', into ./src
-=============================================================
+Making the ark 'Hotel' from a copy of 'My Domain Driven Design' in ./src
+========================================================================
 
   ./src
   ./src/Context
@@ -126,21 +129,21 @@ Cloning 'Hotel', a copy of 'Domain Driven Design', into ./src
 
  ! [NOTE] Dry run — nothing was written.</code></pre>
 <p>The <code>Context</code> folder is made empty. Contexts are members, and you add them yourself.</p>
-<h2 id="clone">Clone it <a class="anchor" href="#clone" aria-label="Link to this section">#</a></h2>
-<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "Domain Driven Design" Hotel ./src --ark hotel
+<h2 id="clone">Make the ark <a class="anchor" href="#clone" aria-label="Link to this section">#</a></h2>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "My Domain Driven Design" Hotel ./src
 Barn: …/hotel
 
-Cloning 'Hotel', a copy of 'Domain Driven Design', into ./src
-=============================================================
+Making the ark 'Hotel' from a copy of 'My Domain Driven Design' in ./src
+========================================================================
 
   ./src
   …
 
- [OK] Cloned 'Hotel' into ./src.
+ [OK] Made the ark 'Hotel' in ./src.
 
-Bound to the template 'Hotel' in .barn/barnark/tracked-folders.json — check it any time with `barnark template:check`.</code></pre>
-<ul><li>The first argument names a template: a shipped one, or one of your own as <code>template:list</code> shows it.</li><li>The second is the name for the project’s template, your own copy. Nobody calls a project “Domain Driven Design”, so a shipped template’s name is refused.</li><li>The third is the folder to make. It is relative to the barn’s root, and the folder above it must exist.</li></ul>
-<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone Library X ./nope/lib --ark x
+Bound to its own template 'Hotel' in .barn/barnark/tracked-folders.json — check it any time with `barnark template:check`.</code></pre>
+<ul><li>The first argument names one of your own templates, as <code>template:list</code> shows it. A shipped one is refused: copy it first.</li><li>The second is the ark’s name, unique in the project. The ark’s own template, a further copy, takes the same name, or the name with a number when one of yours has it.</li><li>The third is the folder to make. It is relative to the barn’s root, and the folder above it must exist.</li></ul>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "My Library" X ./nope/lib
 Barn: …/hotel
 
  [ERROR] Folder '/nope' does not exist. Create that one first.</code></pre>

@@ -55,15 +55,21 @@ Barn: …/hotel
   Feature Based Architecture   Shipped
   Model View Controller        Shipped
   Library                      Shipped
-  Package App                  Shipped</code></pre>
-<h2 id="clone">Clone one into your project <a class="anchor" href="#clone" aria-label="Link to this section">#</a></h2>
-<p>Cloning copies a template under a name you give it, then makes a folder shaped by it. The copy is yours:
-nothing ties it to the template it came from. <code>--dry-run</code> shows the folders without making any.</p>
-<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "Domain Driven Design" Hotel ./src --ark hotel --dry-run
+  Package App                  Shipped
+  Blank project                Shipped</code></pre>
+<h2 id="clone">Copy one, then make an ark from your copy <a class="anchor" href="#clone" aria-label="Link to this section">#</a></h2>
+<p>An ark is made only from a template of your own, so first copy a shipped one under a name you give it. The copy is yours:
+nothing ties it to the template it came from.</p>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:copy "Domain Driven Design" "My DDD"
 Barn: …/hotel
 
-Cloning 'Hotel', a copy of 'Domain Driven Design', into ./src
-=============================================================
+ [OK] Copied 'Domain Driven Design' into 'My DDD'.</code></pre>
+<p>Then make the ark: give it a name and a folder. Its own template is a further copy, named after the ark. <code>--dry-run</code> shows the folders without making any.</p>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "My DDD" Hotel ./src --dry-run
+Barn: …/hotel
+
+Making the ark 'Hotel' from a copy of 'My DDD' in ./src
+=======================================================
 
   ./src
   ./src/Context
@@ -74,25 +80,25 @@ Cloning 'Hotel', a copy of 'Domain Driven Design', into ./src
   ./src/Transport
   …</code></pre>
 <p>Run it without <code>--dry-run</code> to make them:</p>
-<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "Domain Driven Design" Hotel ./src --ark hotel
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "My DDD" Hotel ./src
 Barn: …/hotel
 
-Cloning 'Hotel', a copy of 'Domain Driven Design', into ./src
-=============================================================
+Making the ark 'Hotel' from a copy of 'My DDD' in ./src
+=======================================================
 
   ./src
   …
 
- [OK] Cloned 'Hotel' into ./src.
+ [OK] Made the ark 'Hotel' in ./src.
 
-Bound to the template 'Hotel' in .barn/barnark/tracked-folders.json — check it any time with `barnark template:check`.</code></pre>
-<p>The project has an ark now, <em>hotel</em>: its template <em>Hotel</em>, bound to <code>src</code>. A project can have more, each with a name of its own. Each folder holds a
+Bound to its own template 'Hotel' in .barn/barnark/tracked-folders.json — check it any time with `barnark template:check`.</code></pre>
+<p>The project has an ark now, <em>Hotel</em>, its own template also <em>Hotel</em>, bound to <code>src</code>. A project can have more, each with a name of its own. Each folder holds a
 <code>.gitkeep</code> so that git keeps it while it is empty. The ark’s own folder also holds a small <code>.barn-ark.json</code> that points back to the project. Barnark creates nothing else in your folders.</p>
 <h2 id="check">Check the folder <a class="anchor" href="#check" aria-label="Link to this section">#</a></h2>
 <pre><code><span class="p">$ </span>vendor/bin/barnark template:check
 Barn: …/hotel
 
-Checking the ark 'hotel', …/hotel/src, against 'Hotel'
+Checking the ark 'Hotel', …/hotel/src, against 'Hotel'
 ======================================================
 
  [OK] Conformant — no inconsistencies found.</code></pre>
@@ -157,7 +163,7 @@ Check it with `barnark template:check`.</code></pre>
 <span class="p">$ </span>vendor/bin/barnark template:check
 Barn: …/hotel
 
-Checking the ark 'hotel', …/hotel/src, against 'Hotel'
+Checking the ark 'Hotel', …/hotel/src, against 'Hotel'
 ======================================================
 
 Unexpected — on disk, not expected here
@@ -177,7 +183,7 @@ Check it with `barnark template:check`.</code></pre>
 <pre><code><span class="p">$ </span>vendor/bin/barnark template:check
 Barn: …/hotel
 
-Checking the ark 'hotel', …/hotel/src, against 'Hotel'
+Checking the ark 'Hotel', …/hotel/src, against 'Hotel'
 ======================================================
 
  [OK] Conformant — no inconsistencies found.</code></pre>
