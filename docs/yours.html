@@ -31,8 +31,8 @@
       <nav class="docs-nav" aria-label="Documentation"><h2>Start</h2><ul><li><a href="index.html">Overview</a></li><li><a href="templates.html">Templates, bound and unbound</a></li></ul><h2>Tasks</h2><ul><li><a href="choose.html">Choose and clone an architecture</a></li><li><a href="grow.html">Add folders to your template</a></li><li><a href="check.html">Check the project</a></li><li><a href="yours.html" aria-current="page">Keep templates of your own</a></li><li><a href="history.html">Revisions and history</a></li></ul><h2>Tools</h2><ul><li><a href="gui.html">The browser app</a></li><li><a href="cli.html">Command reference</a></li><li><a href="php.html">From PHP</a></li><li><a href="install.html">Installation</a></li><li><a href="data.html">Where your data lives</a></li></ul><h2>Reference</h2><ul><li><a href="glossary.html">Glossary</a></li><li><a href="troubleshooting.html">When something goes wrong</a></li></ul></nav>
       <article class="docs-article">
         <h1>Keep templates of your own</h1>
-        <p class="lede">Templates beside the project’s own: copy, list, clone and delete.</p>
-<p>A project has one bound template, and it can keep others beside it: copies you made, unbound, ready to be cloned, or
+        <p class="lede">Templates beside the arks’ own: copy, list, clone and delete.</p>
+<p>A project’s arks each have a bound template, and it can keep others beside them: copies you made, unbound, ready to be cloned, or
 tidied away when you don’t need them.</p>
 <h2 id="list">List <a class="anchor" href="#list" aria-label="Link to this section">#</a></h2>
 <pre><code><span class="p">$ </span>vendor/bin/barnark template:list
@@ -60,7 +60,7 @@ Barn: …/hotel
 <h2 id="clone">Clone one of yours <a class="anchor" href="#clone" aria-label="Link to this section">#</a></h2>
 <p>An unbound template of yours can be cloned into a project with nothing bound, like a shipped one, its members’ folders
 included. The clone is a further copy under the name you give it.</p>
-<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "Our Library" Pricing ./lib
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "Our Library" Pricing ./lib --ark pricing
 Barn: …/hotel
 
 Cloning 'Pricing', a copy of 'Our Library', into ./lib

@@ -47,18 +47,20 @@ Barn: …/hotel
  [ERROR] 'domain driven design' can't name a template: a shipped template is
          called 'Domain Driven Design'.</code></pre>
 <h2 id="bound-and-unbound">Bound and unbound <a class="anchor" href="#bound-and-unbound" aria-label="Link to this section">#</a></h2>
-<p>A project has <strong>one folder and one template that follows it</strong>. That is the <strong>bound</strong> template,
-made together with its folder by a clone. Barnark records which folder it is bound to in
+<p>A project has <strong>arks</strong>, as many as it needs. An ark is a named folder and the template that follows it. That
+template is the <strong>bound</strong> template, made together with its folder by a clone. Each ark has a name, unique in the
+project, and its folder can be anywhere on your computer, in the project or beside it. Barnark records each ark and its folder in
 <code>.barn/barnark/tracked-folders.json</code>, and keeps each of the project’s templates, with its revisions, in
-<code>.barn/barnark/catalogue/</code>.</p>
+<code>.barn/barnark/catalogue/</code>. The ark’s folder holds a small <code>.barn-ark.json</code> that points back to the project.</p>
 <p>The project’s other templates are <strong>unbound</strong>: ones you made by copying. An unbound template isn’t attached to any folder.
-It can be cloned into a project that has nothing bound, like a shipped template, or deleted. While a template is bound, another
-clone is refused.</p>
-<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone Library Pricing ./lib
+It can be cloned into the project as another ark, like a shipped template, or deleted. An ark’s name can’t be one the project already has,
+ignoring case.</p>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone Library Pricing ./lib --ark HOTEL
 Barn: …/hotel
 
- [ERROR] The project has its template already: 'Hotel', bound to '/src'.</code></pre>
-<aside class="callout note"><p><strong>Note.</strong> Nothing unbinds the project’s template or removes its folder: ending a template’s life is not built yet.</p></aside>
+ [ERROR] 'HOTEL' cannot name an ark: the project has an ark called 'hotel'
+         already.</code></pre>
+<aside class="callout note"><p><strong>Note.</strong> Nothing unbinds an ark’s template or removes its folder: ending an ark’s life is not built yet.</p></aside>
 <p>The <a href="yours.html">Keep templates of your own</a> page shows copying, listing and deleting.</p>
 <h2 id="inside">What is in a template <a class="anchor" href="#inside" aria-label="Link to this section">#</a></h2>
 <p>A template is a tree of folders. Each folder in it is one of these:</p>

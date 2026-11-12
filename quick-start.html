@@ -59,7 +59,7 @@ Barn: …/hotel
 <h2 id="clone">Clone one into your project <a class="anchor" href="#clone" aria-label="Link to this section">#</a></h2>
 <p>Cloning copies a template under a name you give it, then makes a folder shaped by it. The copy is yours:
 nothing ties it to the template it came from. <code>--dry-run</code> shows the folders without making any.</p>
-<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "Domain Driven Design" Hotel ./src --dry-run
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "Domain Driven Design" Hotel ./src --ark hotel --dry-run
 Barn: …/hotel
 
 Cloning 'Hotel', a copy of 'Domain Driven Design', into ./src
@@ -74,7 +74,7 @@ Cloning 'Hotel', a copy of 'Domain Driven Design', into ./src
   ./src/Transport
   …</code></pre>
 <p>Run it without <code>--dry-run</code> to make them:</p>
-<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "Domain Driven Design" Hotel ./src
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "Domain Driven Design" Hotel ./src --ark hotel
 Barn: …/hotel
 
 Cloning 'Hotel', a copy of 'Domain Driven Design', into ./src
@@ -86,14 +86,14 @@ Cloning 'Hotel', a copy of 'Domain Driven Design', into ./src
  [OK] Cloned 'Hotel' into ./src.
 
 Bound to the template 'Hotel' in .barn/barnark/tracked-folders.json — check it any time with `barnark template:check`.</code></pre>
-<p>A project has one template, and this is it: <em>Hotel</em>, bound to <code>src</code>. Each folder holds a
-<code>.gitkeep</code> so that git keeps it while it is empty. Barnark creates nothing else in your folders.</p>
+<p>The project has an ark now, <em>hotel</em>: its template <em>Hotel</em>, bound to <code>src</code>. A project can have more, each with a name of its own. Each folder holds a
+<code>.gitkeep</code> so that git keeps it while it is empty. The ark’s own folder also holds a small <code>.barn-ark.json</code> that points back to the project. Barnark creates nothing else in your folders.</p>
 <h2 id="check">Check the folder <a class="anchor" href="#check" aria-label="Link to this section">#</a></h2>
 <pre><code><span class="p">$ </span>vendor/bin/barnark template:check
 Barn: …/hotel
 
-Checking …/hotel/src against 'Hotel'
-====================================
+Checking the ark 'hotel', …/hotel/src, against 'Hotel'
+======================================================
 
  [OK] Conformant — no inconsistencies found.</code></pre>
 <p>The check compares the folder with its template and reports where they differ. The command exits with status 1 when anything is wrong, so it can run in a build.</p>
@@ -157,8 +157,8 @@ Check it with `barnark template:check`.</code></pre>
 <span class="p">$ </span>vendor/bin/barnark template:check
 Barn: …/hotel
 
-Checking …/hotel/src against 'Hotel'
-====================================
+Checking the ark 'hotel', …/hotel/src, against 'Hotel'
+======================================================
 
 Unexpected — on disk, not expected here
 ---------------------------------------
@@ -177,8 +177,8 @@ Check it with `barnark template:check`.</code></pre>
 <pre><code><span class="p">$ </span>vendor/bin/barnark template:check
 Barn: …/hotel
 
-Checking …/hotel/src against 'Hotel'
-====================================
+Checking the ark 'hotel', …/hotel/src, against 'Hotel'
+======================================================
 
  [OK] Conformant — no inconsistencies found.</code></pre>
 <h2 id="open-the-browser-app">Open the browser app <a class="anchor" href="#open-the-browser-app" aria-label="Link to this section">#</a></h2>

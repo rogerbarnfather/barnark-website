@@ -35,9 +35,10 @@
 <p>Every term Barnark uses, in alphabetical order. A word means one thing across this whole site, and matches the words in the browser app and on the command line.</p>
 <dl class="glossary">
 <dt id="barn">Barn</dt><dd>A project with a <code>.barn/</code> folder at its root, where Barnark keeps its records.</dd>
-<dt id="bound-template">Bound template</dt><dd>The project’s one template that follows its one folder. It is made together with the folder by a clone, and every change to it is a revision. While a template is bound, another clone is refused.</dd>
-<dt id="check">Check</dt><dd>Comparing the bound folder with its template, and reporting what is missing and what is unexpected. Files are never checked.</dd>
-<dt id="clone">Clone</dt><dd>To copy a template under a name you give it, as the project’s template, and make its folder. The copy is tied to nothing.</dd>
+<dt id="ark">Ark</dt><dd>A named folder and the template that follows it. A project can have many. Its name is unique in the project, and its folder can be anywhere on your computer. The folder holds a small <code>.barn-ark.json</code> that points back to the project.</dd>
+<dt id="bound-template">Bound template</dt><dd>The template that follows an ark’s folder. It is made together with the folder by a clone, and every change to it is a revision.</dd>
+<dt id="check">Check</dt><dd>Comparing an ark’s folder with its template, and reporting what is missing and what is unexpected. Files are never checked.</dd>
+<dt id="clone">Clone</dt><dd>To copy a template under a name you give it, as a new ark’s template, and make the ark’s folder. The copy is tied to nothing.</dd>
 <dt id="collection">Collection</dt><dd>A folder of a template that holds only members, all of one member type, such as <code>Context</code> in Domain Driven Design.</dd>
 <dt id="copy">Copy</dt><dd>To make a new, unbound template of your own from any template, members included, with no folder. Changing one never changes the other.</dd>
 <dt id="dry-run">Dry run</dt><dd><code>--dry-run</code> on a clone: checks the template, the name and the target, and prints the folders it would make without writing anything.</dd>
@@ -52,7 +53,7 @@
 <dt id="slot">Slot</dt><dd>The command line’s word for a member type a folder offers. <code>template:offers</code> lists slots and <code>template:new</code> takes one.</dd>
 <dt id="tag">Tag</dt><dd>A label a template gives its folders to say what part each plays, such as <code>Domain</code>. A folder carries the tags of its kind of folder.</dd>
 <dt id="template">Template</dt><dd>A description of what folders a project has and what each is for. Barnark says template for every one, the bound one included.</dd>
-<dt id="unbound-template">Unbound template</dt><dd>A template of yours that is not attached to any folder. It can be cloned into a project with nothing bound, or deleted.</dd>
+<dt id="unbound-template">Unbound template</dt><dd>A template of yours that is not attached to any folder. It can be cloned into the project as an ark, or deleted.</dd>
 <dt id="unexpected">Unexpected</dt><dd>A folder on disk that the template does not expect. A kind of inconsistency the check reports.</dd>
 </dl>
         <div class="docs-next"><a href="data.html">← Where your data lives</a><a href="troubleshooting.html">When something goes wrong →</a></div>

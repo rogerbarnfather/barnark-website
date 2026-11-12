@@ -15,10 +15,10 @@ Barnark is orange. Every page has `<body data-brand="ark">`, and components read
 The site uses Barnark's own words, the same ones as its browser app and command line:
 
 - **Template** for every tree, the project's own included. Never "schema". "Bound" and "unbound" say
-  which template is which: the **bound** template follows the project's one folder; **unbound**
-  templates are the project's other copies.
-- **Shipped template** for a catalogue entry, which is read-only. **Clone** copies a template as the
-  project's template and makes its folder; **copy** makes an unbound template and no folder.
+  which template is which: a **bound** template follows an ark's folder (an **ark** is a named
+  folder and its template, and a project has many); **unbound** templates are the project's other copies.
+- **Shipped template** for a catalogue entry, which is read-only. **Clone** copies a template as a new ark's
+  template and makes its folder; **copy** makes an unbound template and no folder.
 - A template's folders are **fixed folders**, **collections**, **members** and **member types**. A member
   is added to a collection, never "filled". The command line calls a member type a **slot**; the site
   says so once and uses *member type* elsewhere.

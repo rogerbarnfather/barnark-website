@@ -41,39 +41,50 @@
 Barn: …/hotel
 
  [ERROR] No template is bound here. Clone one into the project with `barnark
-         template:clone &lt;template&gt; &lt;name&gt; &lt;directory&gt;`, or pass a template and
-         directory to check.</code></pre><p>The project has no bound template yet, so there is nothing to check.</p><p><strong>What to do:</strong> clone one with <code>template:clone</code>, or name a shipped template and a directory to check.</p>
-<h3 id="several-folders">binds several folders <a class="anchor" href="#several-folders" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:list
-Barn: …/hotel
-
- [ERROR] …/hotel/.barn/barnark/tracked-folders.json binds several folders. A
-         project now binds one template, to one folder, and Barnark converts
-         no old record. Delete the file to start afresh.</code></pre><p>Barnark binds one template to one folder, and converts no older record.</p><p><strong>What to do:</strong> delete the file to start afresh, or move the old records out. <a href="data.html#older">Where your data lives</a> says how to keep an older folder bound.</p>
+         template:clone &lt;template&gt; &lt;name&gt; &lt;directory&gt; --ark=&lt;ark&gt;`, or pass a template and
+         directory to check.</code></pre><p>The project has no ark yet, so there is nothing to check.</p><p><strong>What to do:</strong> clone one with <code>template:clone</code>, or name a shipped template and a directory to check.</p>
 <h3 id="unreadable">can’t be read <a class="anchor" href="#unreadable" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:check
 Barn: …/hotel
 
-Checking …/hotel/src against 'Hotel'
-====================================
+Checking the ark 'hotel', …/hotel/src, against 'Hotel'
+======================================================
 
  [ERROR] Template 'Hotel' can't be read: The revision file
          '…/hotel/.barn/barnark/catalogue/template-history' cannot be used:
          Syntax error.</code></pre><p>A template file was changed outside Barnark.</p><p><strong>What to do:</strong> restore the file from git. Don’t edit the template files by hand.</p>
 <h2 id="cloning">Cloning and copying <a class="anchor" href="#cloning" aria-label="Link to this section">#</a></h2>
-<h3 id="already-has">The project has its template already <a class="anchor" href="#already-has" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:clone Library Pricing ./lib
+<h3 id="ark-name">The ark needs a name <a class="anchor" href="#ark-name" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:clone Library Pricing ./lib
 Barn: …/hotel
 
- [ERROR] The project has its template already: 'Hotel', bound to '/src'.</code></pre><p>A project has one bound template, and another clone is refused.</p><p><strong>What to do:</strong> copy the template you want with <code>template:copy</code> and keep it unbound, or work in the bound template.</p>
+ [ERROR] Name the ark with --ark, for example `--ark=checkout`. An ark's name is
+         required and unique in the barn.</code></pre><p>A clone makes an ark, and an ark’s name is required.</p><p><strong>What to do:</strong> add <code>--ark</code> with a name of your own.</p>
+<h3 id="ark-taken">The project has an ark of that name already <a class="anchor" href="#ark-taken" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:clone Library Pricing ./lib --ark HOTEL
+Barn: …/hotel
+
+ [ERROR] 'HOTEL' cannot name an ark: the project has an ark called 'hotel'
+         already.</code></pre><p>An ark’s name is unique in the project, ignoring case.</p><p><strong>What to do:</strong> choose another name. <code>ark:list</code> lists the arks.</p>
+<h3 id="outside">is outside the project <a class="anchor" href="#outside" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:clone Library Pricing ../pricing --ark pricing
+Barn: …/hotel
+
+ [ERROR] '../pricing' is outside the project at …/hotel, so it can't be tracked.
+         Run this from inside the project, or add --outside to make it an ark
+         outside the barn's root.</code></pre><p>An ark’s folder can be anywhere on your computer, but Barnark asks you to say so.</p><p><strong>What to do:</strong> add <code>--outside</code> if that is what you mean.</p>
+<h3 id="link">The ark and its folder disagree <a class="anchor" href="#link" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:check hotel
+Barn: …/hotel
+
+ [WARNING] The ark 'hotel' and its folder disagree: its folder has no
+           .barn-ark.json pointing to this barn.</code></pre><p>The project’s record and the ark’s link file say different things: the folder was moved, the link file was deleted, or the link points at another project.</p><p><strong>What to do:</strong> decide which is right. Barnark never repairs it for you.</p>
 <h3 id="name">can’t name a template <a class="anchor" href="#name" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:copy Hotel "domain driven design"
 Barn: …/hotel
 
  [ERROR] 'domain driven design' can't name a template: a shipped template is
          called 'Domain Driven Design'.</code></pre><p>A template’s name can’t be one the project already has, or a shipped template’s name, ignoring case.</p><p><strong>What to do:</strong> choose another name.</p>
-<h3 id="no-such-template">There is no template called <a class="anchor" href="#no-such-template" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:clone Nope X ./lib
+<h3 id="no-such-template">There is no template called <a class="anchor" href="#no-such-template" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:clone Nope X ./lib --ark x
 Barn: …/hotel
 
  [ERROR] There is no template called 'Nope'. `barnark template:list` lists
          them.</code></pre><p>The name doesn’t match a shipped template or one of yours.</p><p><strong>What to do:</strong> run <code>template:list</code> and use a name from it, in quotes if it has spaces.</p>
-<h3 id="parent">Folder … does not exist <a class="anchor" href="#parent" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:clone Library X ./nope/lib
+<h3 id="parent">Folder … does not exist <a class="anchor" href="#parent" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:clone Library X ./nope/lib --ark x
 Barn: …/hotel
 
  [ERROR] Folder '/nope' does not exist. Create that one first.</code></pre><p>The folder above the one a clone would make doesn’t exist.</p><p><strong>What to do:</strong> make the folder above it first, or clone into a folder that sits directly in the barn.</p>
@@ -108,11 +119,11 @@ Barn: …/hotel
 
  [ERROR] There is no shipped template called './src'.</code></pre><p>With two arguments, the first names a shipped template and the second the directory.</p><p><strong>What to do:</strong> put the template first: <code>template:check "Domain Driven Design" ./src</code>. For the bound folder, leave both out or give only the folder.</p>
 <h2 id="deleting">Deleting <a class="anchor" href="#deleting" aria-label="Link to this section">#</a></h2>
-<h3 id="delete-bound">is the project’s template … cannot be deleted <a class="anchor" href="#delete-bound" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:delete Pricing -n
+<h3 id="delete-bound">is an ark’s template … cannot be deleted <a class="anchor" href="#delete-bound" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:delete Pricing -n
 Barn: …/hotel
 
  [ERROR] 'Pricing' is the project's template, bound to '/lib', and cannot be
-         deleted.</code></pre><p>Shipped templates and the project’s own can’t be deleted.</p><p><strong>What to do:</strong> delete one of your own unbound templates instead. Ending the bound template’s life is not built yet.</p>
+         deleted.</code></pre><p>Shipped templates and the project’s own can’t be deleted.</p><p><strong>What to do:</strong> delete one of your own unbound templates instead. Ending an ark’s life is not built yet.</p>
 <h3 id="delete-asks">Nothing was changed <a class="anchor" href="#delete-asks" aria-label="Link to this section">#</a></h3><pre><code><span class="p">$ </span>vendor/bin/barnark template:delete "Our Library"
 Barn: …/hotel
 

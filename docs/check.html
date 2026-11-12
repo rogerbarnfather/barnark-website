@@ -32,19 +32,22 @@
       <article class="docs-article">
         <h1>Check the project</h1>
         <p class="lede">Compare the folder with its template, and see where they differ.</p>
-<p>The check compares the project’s bound folder with its template and reports where they differ. Nobody has to declare
+<p>The check compares an ark’s folder with its template and reports where they differ. Nobody has to declare
 that a project keeps to its architecture: the check says. Files are never checked, because a template says only what
 <em>folders</em> there are.</p>
 <h2 id="run">Run it <a class="anchor" href="#run" aria-label="Link to this section">#</a></h2>
 <pre><code><span class="p">$ </span>vendor/bin/barnark template:check
 Barn: …/hotel
 
-Checking …/hotel/src against 'Hotel'
-====================================
+Checking the ark 'hotel', …/hotel/src, against 'Hotel'
+======================================================
 
  [OK] Conformant — no inconsistencies found.</code></pre>
-<p>With no arguments it checks the bound folder, wherever in the barn you run it. <code>template:check ./src</code> names
-the folder. The command exits with status 0 when the folder conforms and 1 when it doesn’t, so it can fail a build.</p>
+<p>With no arguments it checks every ark, wherever in the barn you run it. <code>template:check hotel</code> names an ark, and
+so does <code>--ark hotel</code>; <code>template:check ./src</code> names its folder, and an ark’s name and a path that
+disagree are an error. The check also warns when an ark’s <code>.barn-ark.json</code> and the project’s record disagree: a folder
+moved, a link file deleted, or a link that points at another project. It reports and never repairs. The command exits with status
+0 when the arks conform and 1 when one doesn’t, or a link disagrees, so it can fail a build.</p>
 <h2 id="two-kinds">Missing and unexpected <a class="anchor" href="#two-kinds" aria-label="Link to this section">#</a></h2>
 <p>There are two kinds of inconsistency, reported separately.</p>
 <h3 id="unexpected">Unexpected <a class="anchor" href="#unexpected" aria-label="Link to this section">#</a></h3>
@@ -53,8 +56,8 @@ the folder. The command exits with status 0 when the folder conforms and 1 when 
 <span class="p">$ </span>vendor/bin/barnark template:check
 Barn: …/hotel
 
-Checking …/hotel/src against 'Hotel'
-====================================
+Checking the ark 'hotel', …/hotel/src, against 'Hotel'
+======================================================
 
 Unexpected — on disk, not expected here
 ---------------------------------------
@@ -73,8 +76,8 @@ Take a folder into the template with `barnark template:add-folder &lt;path&gt; &
 <span class="p">$ </span>vendor/bin/barnark template:check
 Barn: …/hotel
 
-Checking …/hotel/src against 'Hotel'
-====================================
+Checking the ark 'hotel', …/hotel/src, against 'Hotel'
+======================================================
 
 Missing — expected here, not found on disk
 ------------------------------------------
@@ -92,8 +95,8 @@ collection can only be a member of it, so it is checked as one, and reported as 
 <span class="p">$ </span>vendor/bin/barnark template:check
 Barn: …/hotel
 
-Checking …/hotel/src against 'Hotel'
-====================================
+Checking the ark 'hotel', …/hotel/src, against 'Hotel'
+======================================================
 
 Missing — expected here, not found on disk
 ------------------------------------------

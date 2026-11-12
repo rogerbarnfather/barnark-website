@@ -49,7 +49,7 @@ Barn: …/hotel
 <p><code>--dry-run</code> checks the template, the name and the target, and prints the folders it would make without writing
 anything. Each of these was run in a barn with nothing bound.</p>
 <h3 id="mvc">Model View Controller <a class="anchor" href="#mvc" aria-label="Link to this section">#</a></h3>
-<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "Model View Controller" Pricing ./app --dry-run
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "Model View Controller" Pricing ./app --ark pricing --dry-run
 Barn: …/hotel
 
 Cloning 'Pricing', a copy of 'Model View Controller', into ./app
@@ -62,7 +62,7 @@ Cloning 'Pricing', a copy of 'Model View Controller', into ./app
 
  ! [NOTE] Dry run — nothing was written.</code></pre>
 <h3 id="library">Library <a class="anchor" href="#library" aria-label="Link to this section">#</a></h3>
-<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone Library Pricing ./lib --dry-run
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone Library Pricing ./lib --ark pricing --dry-run
 Barn: …/hotel
 
 Cloning 'Pricing', a copy of 'Library', into ./lib
@@ -84,7 +84,7 @@ Cloning 'Pricing', a copy of 'Library', into ./lib
 
  ! [NOTE] Dry run — nothing was written.</code></pre>
 <h3 id="feature-based">Feature Based Architecture <a class="anchor" href="#feature-based" aria-label="Link to this section">#</a></h3>
-<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "Feature Based Architecture" Pricing ./app --dry-run
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "Feature Based Architecture" Pricing ./app --ark pricing --dry-run
 Barn: …/hotel
 
 Cloning 'Pricing', a copy of 'Feature Based Architecture', into ./app
@@ -100,7 +100,7 @@ Cloning 'Pricing', a copy of 'Feature Based Architecture', into ./app
 <p>Feature Based Architecture is built entirely from members, so a clone makes only the folder. Its features arrive as you add
 them: <a href="grow.html">Add folders to your template</a> shows how.</p>
 <h3 id="ddd">Domain Driven Design <a class="anchor" href="#ddd" aria-label="Link to this section">#</a></h3>
-<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "Domain Driven Design" Hotel ./src --dry-run
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "Domain Driven Design" Hotel ./src --ark hotel --dry-run
 Barn: …/hotel
 
 Cloning 'Hotel', a copy of 'Domain Driven Design', into ./src
@@ -127,7 +127,7 @@ Cloning 'Hotel', a copy of 'Domain Driven Design', into ./src
  ! [NOTE] Dry run — nothing was written.</code></pre>
 <p>The <code>Context</code> folder is made empty. Contexts are members, and you add them yourself.</p>
 <h2 id="clone">Clone it <a class="anchor" href="#clone" aria-label="Link to this section">#</a></h2>
-<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "Domain Driven Design" Hotel ./src
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone "Domain Driven Design" Hotel ./src --ark hotel
 Barn: …/hotel
 
 Cloning 'Hotel', a copy of 'Domain Driven Design', into ./src
@@ -140,12 +140,12 @@ Cloning 'Hotel', a copy of 'Domain Driven Design', into ./src
 
 Bound to the template 'Hotel' in .barn/barnark/tracked-folders.json — check it any time with `barnark template:check`.</code></pre>
 <ul><li>The first argument names a template: a shipped one, or one of your own as <code>template:list</code> shows it.</li><li>The second is the name for the project’s template, your own copy. Nobody calls a project “Domain Driven Design”, so a shipped template’s name is refused.</li><li>The third is the folder to make. It is relative to the barn’s root, and the folder above it must exist.</li></ul>
-<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone Library X ./nope/lib
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:clone Library X ./nope/lib --ark x
 Barn: …/hotel
 
  [ERROR] Folder '/nope' does not exist. Create that one first.</code></pre>
-<p>Each folder made has a <code>.gitkeep</code>, so that git keeps it while it is empty. Barnark creates no other file in your
-folders. The folder is recorded in <code>.barn/barnark/tracked-folders.json</code> and its template is kept in
+<p>Each folder made has a <code>.gitkeep</code>, so that git keeps it while it is empty. The ark’s own folder also holds a small
+<code>.barn-ark.json</code> that points back to the project, and Barnark creates no other file in your folders. The ark is recorded in <code>.barn/barnark/tracked-folders.json</code> and its template is kept in
 <code>.barn/barnark/catalogue/</code>, so a later <code>template:check</code> with no arguments knows what to check.</p>
 <figure><div class="shot"><div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>Barnark · Clone into the project</span></div><img src="../assets/screens/ark-clone.webp" width="2560" height="2120" loading="lazy" alt="The Clone into the project form in the Barnark browser app. It asks for a folder name and a base directory, and lists the five shipped templates with their descriptions. Domain Driven Design is picked, and beside it is a preview of the folders a clone has, with the Context member type shown in angle brackets. A box at the end is for the name of the project’s template."></div><figcaption>In the browser app, Clone into the project asks the same questions and previews the folders.</figcaption></figure>
 <p>Next: <a href="grow.html">add folders to your template</a>.</p>

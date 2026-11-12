@@ -39,11 +39,12 @@ architecture, not build output, so commit them together with your code.</p>
 .barn/barnark/catalogue/template-history/save.lock
 .barn/barnark/catalogue/trees/Hotel.barntree.json
 .barn/barnark/tracked-folders.json</code></pre>
-<div class="table-wrap"><table><thead><tr><th scope="col">File</th><th scope="col">What it holds</th></tr></thead><tbody><tr><td><code>tracked-folders.json</code></td><td>The folder the project’s template is bound to. <code>template:clone</code> writes it when it makes a folder. It is what lets a bare <code>template:check</code> work with no arguments.</td></tr><tr><td><code>catalogue/trees/&lt;name&gt;.barntree.json</code></td><td>Each of the project’s templates, bound or not: a copy of the one it was cloned from, under the name you gave it, and tied to nothing. This is the template’s current tree.</td></tr><tr><td><code>catalogue/template-history/</code></td><td>Every revision of every template, each with the reason it was made. Nothing in it names the template it came from.</td></tr><tr><td><code>save.lock</code></td><td>Written while a template is saved. Leave it out of git.</td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th scope="col">File</th><th scope="col">What it holds</th></tr></thead><tbody><tr><td><code>tracked-folders.json</code></td><td>Each ark: its name, its folder and its template. <code>template:clone</code> writes it when it makes a folder. A folder outside the barn’s root is written with steps up, such as <code>../pricing</code>. It is what lets a bare <code>template:check</code> work with no arguments.</td></tr><tr><td><code>catalogue/trees/&lt;name&gt;.barntree.json</code></td><td>Each of the project’s templates, bound or not: a copy of the one it was cloned from, under the name you gave it, and tied to nothing. This is the template’s current tree.</td></tr><tr><td><code>catalogue/template-history/</code></td><td>Every revision of every template, each with the reason it was made. Nothing in it names the template it came from.</td></tr><tr><td><code>save.lock</code></td><td>Written while a template is saved. Leave it out of git.</td></tr></tbody></table></div>
 <pre><code><span class="p">$ </span>cat .barn/barnark/tracked-folders.json
 {
     "folders": [
         {
+            "name": "pricing",
             "path": "/lib",
             "template": "Pricing"
         }
@@ -58,24 +59,15 @@ architecture, not build output, so commit them together with your code.</p>
 <pre><code><span class="p">$ </span>vendor/bin/barnark template:check
 Barn: …/hotel
 
-Checking …/hotel/src against 'Hotel'
-====================================
+Checking the ark 'hotel', …/hotel/src, against 'Hotel'
+======================================================
 
  [ERROR] Template 'Hotel' can't be read: The revision file
          '…/hotel/.barn/barnark/catalogue/template-history' cannot be used:
          Syntax error.</code></pre>
 <p>Restore the file from git. Every change to a template is made through Barnark, as a revision.</p>
 <h2 id="older">An older barn <a class="anchor" href="#older" aria-label="Link to this section">#</a></h2>
-<p>Barnark is for new projects and converts no older record. A <code>tracked-folders.json</code> that binds several folders is refused,
-with the file’s path:</p>
-<pre><code><span class="p">$ </span>vendor/bin/barnark template:list
-Barn: …/hotel
-
- [ERROR] …/hotel/.barn/barnark/tracked-folders.json binds several folders. A
-         project now binds one template, to one folder, and Barnark converts
-         no old record. Delete the file to start afresh.</code></pre>
-<p>To keep an older folder bound, scaffold it again under the same path in a new, empty barn, and copy that barn’s
-<code>.barn/barnark/</code> into yours. A <code>templates/</code> folder left in an older barn is not read.</p>
+<p>Barnark is for new projects and converts no older record. A <code>tracked-folders.json</code> or a template written by an older Barnark may not be read.</p>
         <div class="docs-next"><a href="install.html">← Installation</a><a href="glossary.html">Glossary →</a></div>
       </article>
     </div>
