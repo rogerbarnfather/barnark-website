@@ -1,15 +1,6 @@
 /* Barnark's own components. Everything shared by every Barn website is in
  * base/ (see base/base.css); this file is unlayered, so it wins over base/. */
 
-.tool-mark {
-  width: 28px;
-  height: 28px;
-  padding: 3px;
-  border-radius: 8px;
-  background: var(--brand);
-  color: var(--brand-ink);
-}
-
 .maturity {
   max-width: 40rem;
   margin: 28px auto 0;
