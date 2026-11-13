@@ -93,6 +93,14 @@ members. A component is placed only once, never in a collection, and never in a 
 your scaffolds opens on its <strong>Tree</strong>, where you add folders and change what they mean as on an ark’s
 <strong>Scaffold</strong> tab, with nothing made on disk. From the command line: <code>template:place</code>, and
 <code>--template=</code> on <code>template:add-folder</code> and <code>template:change-meaning</code>.</p>
+<p>In one of your scaffolds every folder of the tree, a member type’s included, offers <strong>+</strong> to add a folder,
+<strong>List</strong> to add a list (a folder that holds members, with the member type each follows), <strong>Meaning</strong>
+and <strong>Remove</strong>, and the top offers <strong>Add a list</strong>. Build inside a member type to shape what each member
+holds, such as the <code>Domain</code> and <code>Application</code> folders of every context. <strong>Remove</strong> asks
+whether to take the folder out of this scaffold only, so it stays available to place again, or to delete its definition too. An
+ark’s tree offers neither <strong>List</strong> nor <strong>Remove</strong>: it holds members, so its shape only grows. From the
+command line: <code>template:add-list</code>, <code>template:remove-folder</code>, and <code>--in=&lt;key&gt;</code> on
+<code>template:add-folder</code> and <code>template:change-meaning</code>.</p>
 <h2 id="tags">Tags <a class="anchor" href="#tags" aria-label="Link to this section">#</a></h2>
 <p>A template can tag its folders, as Domain Driven Design tags its layers <code>Application</code>, <code>Domain</code>,
 <code>Infrastructure</code> and <code>Transport</code>. A folder’s tags show as coloured labels beside its name, in Browse and in a
