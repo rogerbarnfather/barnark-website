@@ -87,6 +87,12 @@ number (<code>Feature2</code>), and a tag the scaffold already declares keeps it
 which. An available component of one of yours can be <strong>Removed</strong>, with what only it holds. Later changes to the
 original never reach a copy. From the command line: <code>template:copy-component</code> and
 <code>template:remove-component</code>.</p>
+<p><strong>Place</strong>, on a folder of a scaffold’s own tree, puts an available component there under its own folder name.
+In an ark its folders are then made, one already made by hand being kept, and a collection arrives empty, ready for
+members. A component is placed only once, never in a collection, and never in a folder used in several places. One of
+your scaffolds opens on its <strong>Tree</strong>, where you add folders and change what they mean as on an ark’s
+<strong>Scaffold</strong> tab, with nothing made on disk. From the command line: <code>template:place</code>, and
+<code>--template=</code> on <code>template:add-folder</code> and <code>template:change-meaning</code>.</p>
 <h2 id="tags">Tags <a class="anchor" href="#tags" aria-label="Link to this section">#</a></h2>
 <p>A template can tag its folders, as Domain Driven Design tags its layers <code>Application</code>, <code>Domain</code>,
 <code>Infrastructure</code> and <code>Transport</code>. A folder’s tags show as coloured labels beside its name, in Browse and in a
