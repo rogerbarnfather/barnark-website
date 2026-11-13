@@ -41,7 +41,7 @@
 <dt id="clone">Clone</dt><dd>To copy a template under a name you give it, as a new ark’s template, and make the ark’s folder. The copy is tied to nothing.</dd>
 <dt id="collection">Collection</dt><dd>A folder of a template that holds only members, all of one member type, such as <code>Context</code> in Domain Driven Design.</dd>
 <dt id="component">Component</dt><dd>A building block of a template: a folder with a meaning and its tags, holding fixed folders, a collection or nothing. It is <em>placed</em> when the template’s tree uses it, and only <em>available</em> when nothing does yet. <code>template:components</code> lists them, and the browser app’s <strong>Components</strong> view shows them. A component can be copied into one of your templates, where it is available until placed.</dd>
-<dt id="copy">Copy</dt><dd>To make a new, unbound template of your own from any template, members included, with no folder. Changing one never changes the other.</dd>
+<dt id="copy">Copy</dt><dd>To make a new, unbound template of your own from a shipped template or one of yours, with no folder. Nothing is copied out of an ark. Changing one never changes the other.</dd>
 <dt id="dry-run">Dry run</dt><dd><code>--dry-run</code> on a clone: checks the template, the name and the target, and prints the folders it would make without writing anything.</dd>
 <dt id="fixed-folder">Fixed folder</dt><dd>A folder the template names itself, such as <code>Kernel</code> or <code>Api</code>. Every folder made to the template has it.</dd>
 <dt id="leaf">Leaf</dt><dd>A folder of a template with no folders of its own. It is where the template stops and your code begins.</dd>
