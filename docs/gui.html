@@ -52,7 +52,7 @@ whatever width you like, and a double-click on the divider puts it back.</p>
 <p>An ark is made only from one of Your scaffolds. Choose a Barnark scaffold, such as <em>Domain Driven Design</em> or <em>Blank
 project</em> (one empty folder), and <strong>Copy to Your scaffolds</strong> under a name such as <em>My DDD</em>. Then, on your copy,
 <strong>Create ark</strong> asks for the ark’s name, its folder and the folder’s base directory, and says what it will do: “Creates the
-ark Shop from a copy of My DDD. Later changes to My DDD won’t reach it.” The ark’s own scaffold takes the ark’s name. A project can have
+ark Shop from a copy of My DDD. Later changes to My DDD won’t reach it.” The ark’s own scaffold takes the ark’s name, and its <strong>Scaffold</strong> tab says “Copied from My DDD, revision 1”. A project can have
 many arks. Deleting one of Your scaffolds asks first, and says that copies made from it, arks included, keep working.</p>
 <h2 id="browse">Browse <a class="anchor" href="#browse" aria-label="Link to this section">#</a></h2>
 <p>The tree shows a folder’s folders, never its files. Wherever the scaffold has a member type for a folder you name, it offers a
@@ -85,7 +85,9 @@ The copy comes with everything it holds and is available to place: nothing in th
 changes. A component’s details offer <strong>Copy to…</strong> one of your scaffolds or a new one, except an ark’s: nothing is copied out of an ark. A key already in use gets a
 number (<code>Feature2</code>), and a tag the scaffold already declares keeps its own meaning; the notice after a copy says
 which. An available component of one of yours can be <strong>Removed</strong>, with what only it holds. Later changes to the
-original never reach a copy. From the command line: <code>template:copy-component</code> and
+original never reach a copy, but a copy says where it came from, in its details and on its scaffold’s page: “Copied from
+Aggregate in Domain Driven Design, revision 3”, with the original linked while it is there, “original deleted” once it is gone and,
+for a Barnark scaffold, “changed in Barnark since”. From the command line: <code>template:copy-component</code> and
 <code>template:remove-component</code>.</p>
 <p><strong>Place</strong>, on a folder of a scaffold’s own tree, puts an available component there under its own folder name.
 In an ark its folders are then made, one already made by hand being kept, and a collection arrives empty, ready for
