@@ -37,7 +37,7 @@
 <dt id="barn">Barn</dt><dd>A project with a <code>.barn/</code> folder at its root, where Barnark keeps its records.</dd>
 <dt id="ark">Ark</dt><dd>A named folder and the template that follows it. A project can have many. Its name is unique in the project, and its folder can be anywhere on your computer. The folder holds a small <code>.barn-ark.json</code> that points back to the project.</dd>
 <dt id="bound-template">Bound template</dt><dd>The template that follows an ark’s folder. It is made together with the folder by a clone, and every change to it is a revision.</dd>
-<dt id="check">Check</dt><dd>Comparing an ark’s folder with its template, and reporting what is missing and what is unexpected. Files are never checked.</dd>
+<dt id="check">Check</dt><dd>Comparing an ark’s folder with its template, and reporting what is missing and what is unexpected, and, where the ark has file rules, the files they don’t allow.</dd>
 <dt id="clone">Clone</dt><dd>To copy a template under a name you give it, as a new ark’s template, and make the ark’s folder. The copy is tied to nothing.</dd>
 <dt id="collection">Collection</dt><dd>A folder of a template that holds only members, all of one member type, such as <code>Context</code> in Domain Driven Design.</dd>
 <dt id="component">Component</dt><dd>A building block of a template: a folder with a meaning and its tags, holding fixed folders, a collection or nothing. It is <em>placed</em> when the template’s tree uses it, and only <em>available</em> when nothing does yet. <code>template:components</code> lists them, and the browser app’s <strong>Components</strong> view shows them. A component can be copied into one of your templates, where it is available until placed.</dd>
@@ -53,6 +53,7 @@
 <dt id="shipped-template">Shipped template</dt><dd>One of the six templates Barnark ships, the GUI’s Barnark scaffolds: read-only, and changed only by a new Barnark.</dd>
 <dt id="slot">Slot</dt><dd>The command line’s word for a member type a folder offers. <code>template:offers</code> lists slots and <code>template:new</code> takes one.</dd>
 <dt id="tag">Tag</dt><dd>A label a template gives its folders to say what part each plays, such as <code>Domain</code>. A folder carries the tags of its kind of folder.</dd>
+<dt id="file-rule">File rule</dt><dd>An ark’s statement, by tag, of which files the folders carrying that tag may hold: name patterns such as <code>*.php</code>. The check reports a file that matches none. Rules belong to the ark, not to a template.</dd>
 <dt id="template">Template</dt><dd>A description of what folders a project has and what each is for. Barnark says template for every one, the bound one included; the GUI calls it a <a href="#scaffold">scaffold</a>.</dd>
 <dt id="scaffold">Scaffold</dt><dd>What the GUI calls a template. <em>Your scaffolds</em> are the ones you copied, <em>Barnark scaffolds</em> the shipped ones, and an ark’s own scaffold is reached through its ark.</dd>
 <dt id="unbound-template">Unbound template</dt><dd>A template of yours that is not attached to any folder. It can be cloned into the project as an ark, or deleted.</dd>

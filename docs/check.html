@@ -33,8 +33,8 @@
         <h1>Check the project</h1>
         <p class="lede">Compare the folder with its template, and see where they differ.</p>
 <p>The check compares an ark’s folder with its template and reports where they differ. Nobody has to declare
-that a project keeps to its architecture: the check says. Files are never checked, because a template says only what
-<em>folders</em> there are.</p>
+that a project keeps to its architecture: the check says. A template says only what <em>folders</em> there are, so
+files are checked only by <a href="#file-rules">file rules</a> you give an ark, by name and by tag.</p>
 <h2 id="run">Run it <a class="anchor" href="#run" aria-label="Link to this section">#</a></h2>
 <pre><code><span class="p">$ </span>vendor/bin/barnark template:check
 Barn: …/hotel
@@ -108,6 +108,37 @@ Missing — expected here, not found on disk
   …/hotel/src/Context/Hand/Infrastructure
     Expected folder 'Infrastructure' here, but it does not exist.</code></pre>
 <p>A folder made by hand anywhere else is reported as unexpected.</p>
+<h2 id="file-rules">File rules <a class="anchor" href="#file-rules" aria-label="Link to this section">#</a></h2>
+<p>A rule says which files the folders carrying a tag may hold, by name. You give it to an ark, because what a file is called
+belongs to the codebase’s language: <code>*.php</code> in one ark, <code>*.ts</code> in another. Rules go by <a href="templates.html#tags">tags</a>,
+and the shipped templates that tag their layers, such as Domain Driven Design, give an ark tags to go by at once. To tag folders
+yourself, do it in your own template before you make an ark from it, because an ark keeps the tags its template had when it was made.
+<code>template:components --keys</code> lists the keys:</p>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:tag "My Hotel" --in=Reservation --tag=Domain --meaning="What the hotel is about, with no framework in it."</code></pre>
+<p>Give the ark a rule for the tag. Quote each pattern, so that the shell leaves it alone:</p>
+<pre><code><span class="p">$ </span>vendor/bin/barnark rule:set hotel Domain '*.php' '*.ts'
+<span class="p">$ </span>vendor/bin/barnark rule:list hotel</code></pre>
+<p>A pattern matches a file’s name only, with <code>*</code>, <code>?</code> and <code>[...]</code>, and capital letters count. Each
+file directly in a folder carrying the tag must match one of the patterns; <code>--none</code> makes a rule that allows no file. A
+file whose name starts with a dot is never seen, so a folder holding only a <code>.gitkeep</code> is empty, and a tag reaches the
+folder that carries it and none inside it. The rules are in <code>.barn/barnark/rules/hotel.json</code>: commit it, and Git keeps
+their history. The check reports what doesn’t match, in a group of its own:</p>
+<pre><code><span class="p">$ </span>vendor/bin/barnark template:check
+Barn: …/hotel
+
+Checking the ark 'hotel', …/hotel/src, against 'Hotel'
+======================================================
+
+Files — in a folder whose tag has a rule that does not allow them
+-----------------------------------------------------------------
+
+  …/hotel/src/Context/Reservation/Domain/notes.txt
+    'notes.txt' matches none of the patterns for the tag 'Domain': *.php, *.ts.
+
+ [ERROR] 1 inconsistency(ies) found.</code></pre>
+<p>A rule for a tag its template no longer declares is reported as well, and <code>rule:remove</code> clears it. These are
+findings only, and only for an ark. The browser app lists them under <strong>File rules</strong> in <strong>Check</strong>; the
+tags and rules themselves are edited on the command line.</p>
 <h2 id="explicit">Check a directory against a shipped template <a class="anchor" href="#explicit" aria-label="Link to this section">#</a></h2>
 <p>To check a folder that isn’t the bound one, name a shipped template first and the directory second. There is no record of
 members to read, so only the folders the template settles on its own are applied.</p>

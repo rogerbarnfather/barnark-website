@@ -25,8 +25,9 @@ The site uses Barnark's own words, the same ones as its browser app and command 
 - **Revision**, **meaning**, **tag**, **check**, **missing** and **unexpected** keep one meaning
   across the site and are defined once in the glossary.
 - **Area of business** is never shortened, if it comes up at all.
-- Say what a template says: folders only. Never write that Barnark checks, creates or manages files,
-  apart from the `.gitkeep` it adds so that git keeps an empty folder.
+- Say what a template says: folders only. Never write that Barnark creates or manages files, apart from
+  the `.gitkeep` it adds so that git keeps an empty folder; the only files it looks at are the ones an
+  ark's **file rules** name, by tag and by name.
 - Examples use a hotel (contexts such as Reservation and FrontDesk, an aggregate Booking), never Jupiter
   or Pleasant Stay.
 
