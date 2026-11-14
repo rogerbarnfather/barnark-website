@@ -69,7 +69,7 @@ Unexpected — on disk, not expected here
 
 Take a folder into the template with `barnark template:add-folder &lt;path&gt; &lt;meaning&gt;`, or add it as a member with `barnark template:new`.</code></pre>
 <p>For each, you decide. Take it into the template, saying what belongs there (<code>template:add-folder</code>, or
-<strong>Add to template</strong> in the browser app), or remove the folder, or leave it showing as an issue.</p>
+<strong>Add to scaffold</strong> in the browser app), or remove the folder, or leave it showing as an issue.</p>
 <h3 id="missing">Missing <a class="anchor" href="#missing" aria-label="Link to this section">#</a></h3>
 <p>A folder the template expects that isn’t on disk:</p>
 <pre><code><span class="p">$ </span>rm -rf src/Context/Reservation/Application
@@ -144,6 +144,7 @@ Files — in a folder whose tag has a rule that does not allow them
 <p>A rule for a tag its template no longer declares is reported as well, and <code>rule:remove</code> clears it. These are
 findings only, and only for an ark. The browser app lists them under <strong>File rules</strong> in <strong>Check</strong>; the
 tags and rules themselves are edited on the command line.</p>
+<figure><div class="shot"><div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>Barnark · Check</span></div><picture><source media="(prefers-color-scheme: dark)" srcset="../assets/screens/ark-file-rules-dark.webp"><img src="../assets/screens/ark-file-rules.webp" width="2560" height="1240" loading="lazy" alt="File rules reports notes.txt in Reservation’s tagged Domain folder: its name matches neither *.php nor *.ts."></picture></div><figcaption>The File rules group explains which tag and name patterns the file breaks.</figcaption></figure>
 <h2 id="explicit">Check a directory against a shipped template <a class="anchor" href="#explicit" aria-label="Link to this section">#</a></h2>
 <p>To check a folder that isn’t the bound one, name a shipped template first and the directory second. There is no record of
 members to read, so only the folders the template settles on its own are applied.</p>
@@ -177,9 +178,9 @@ Unexpected — on disk, not expected here
  [ERROR] 6 inconsistency(ies) found.</code></pre>
 <h2 id="gui">In the browser app <a class="anchor" href="#gui" aria-label="Link to this section">#</a></h2>
 <p>The <strong>Check</strong> tab runs the same check. <strong>Re-run</strong> checks again, and each unexpected folder offers
-<strong>Add to template</strong>: give it a meaning and it becomes part of the template as it is, and the check runs again.</p>
-<figure><div class="shot"><div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>Barnark · Check</span></div><img src="../assets/screens/ark-check.webp" width="2560" height="1040" loading="lazy" alt="The Check tab for the hotel project, with a green tick and the words “Conformant — no inconsistencies found.” A Re-run button is at the right."></div><figcaption>A conforming folder.</figcaption></figure>
-<figure><div class="shot"><div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>Barnark · Check</span></div><img src="../assets/screens/ark-check-unexpected.webp" width="2560" height="1240" loading="lazy" alt="The Check tab reporting one inconsistency: the folder /src/Scratch is not part of Hotel. The row has an Add to template button."></div><figcaption>An unexpected folder, and the button to take it into the template.</figcaption></figure>
+<strong>Add to scaffold</strong>: give it a meaning and it becomes part of the template as it is, and the check runs again.</p>
+<figure><div class="shot"><div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>Barnark · Check</span></div><picture><source media="(prefers-color-scheme: dark)" srcset="../assets/screens/ark-check-dark.webp"><img src="../assets/screens/ark-check.webp" width="2560" height="1240" loading="lazy" alt="The Check tab for the hotel project, with a green tick and the words “Conformant — no inconsistencies found.” A Re-run button is at the right."></picture></div><figcaption>A conforming folder.</figcaption></figure>
+<figure><div class="shot"><div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>Barnark · Check</span></div><picture><source media="(prefers-color-scheme: dark)" srcset="../assets/screens/ark-check-unexpected-dark.webp"><img src="../assets/screens/ark-check-unexpected.webp" width="2560" height="1240" loading="lazy" alt="The Check tab reporting one inconsistency: the folder /src/Scratch is not part of Hotel. The row has an Add to scaffold button."></picture></div><figcaption>An unexpected folder, and the button to take it into the template.</figcaption></figure>
 <p>Next: <a href="yours.html">keep templates of your own</a>.</p>
         <div class="docs-next"><a href="grow.html">← Add folders to your template</a><a href="yours.html">Keep templates of your own →</a></div>
       </article>
