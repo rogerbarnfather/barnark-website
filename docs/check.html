@@ -113,6 +113,11 @@ Missing — expected here, not found on disk
 belongs to the codebase’s language: <code>*.php</code> in one ark, <code>*.ts</code> in another. Rules go by <a href="templates.html#tags">tags</a>,
 and the shipped templates that tag their layers, such as Domain Driven Design, give an ark tags to go by at once. To tag folders
 yourself, do it in your own template before you make an ark from it, because an ark keeps the tags its template had when it was made.
+Tagging or untagging a shared component reaches every place that component occurs in the template. The command lists
+those places; <code>&lt;Feature&gt;</code> means the shape each member follows, and <code>(root)</code> means the top folder.
+An available component has no occurrences yet. A tag does not pass down to the folders inside a tagged folder.</p>
+<p>For example, tagging the shared Exception component in a copy of Library reaches its folders under Api, Shared and
+each Feature member type. Structural edits to shared components remain refused.
 <code>template:components --keys</code> lists the keys:</p>
 <pre><code><span class="p">$ </span>vendor/bin/barnark template:tag "My Hotel" --in=Reservation --tag=Domain --meaning="What the hotel is about, with no framework in it."</code></pre>
 <p>Give the ark a rule for the tag. Quote each pattern, so that the shell leaves it alone:</p>
